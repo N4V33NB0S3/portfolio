@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naveen Bose - Cybersecurity & Networking Professional</title>
-
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <!-- Google Fonts: Inter & Roboto Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,20 +21,54 @@
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #E5E7EB;
+            overflow-x: hidden;
         }
         .font-mono {
             font-family: 'Roboto Mono', monospace;
         }
         .hero-bg {
-            background-color: #111;
+            background-color: #050505;
             background-image:
-                radial-gradient(circle at 25px 25px, rgba(0, 255, 137, 0.2) 2px, transparent 0),
-                radial-gradient(circle at 75px 75px, rgba(0, 255, 137, 0.2) 2px, transparent 0);
+                radial-gradient(circle at 25px 25px, rgba(0, 255, 137, 0.1) 2px, transparent 0),
+                radial-gradient(circle at 75px 75px, rgba(0, 255, 137, 0.1) 2px, transparent 0);
             background-size: 100px 100px;
+            position: relative;
+        }
+        /* Scanline and Glitch Effect */
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 18, 18, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            animation: glitch 0.5s linear infinite alternate-reverse;
+        }
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            25% {
+                transform: translate(2px, -1px);
+            }
+            50% {
+                transform: translate(-1px, 2px);
+            }
+            75% {
+                transform: translate(1px, -2px);
+            }
+            100% {
+                transform: translate(-2px, 1px);
+            }
         }
         .section-title {
             border-bottom: 3px solid #00ff89;
             padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(0, 255, 137, 0.5);
         }
         .project-card {
             background-color: #1a1a1a;
@@ -43,7 +77,7 @@
         }
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 30px -15px rgba(0, 255, 137, 0.2);
+            box-shadow: 0 10px 30px -15px rgba(0, 255, 137, 0.3);
         }
         .skill-card {
             background-color: #1a1a1a;
@@ -61,6 +95,17 @@
         .tryhackme-badge {
             background-color: #881414;
             color: white;
+        }
+        /* Typing animation styles */
+        .typewriter-text .cursor {
+            display: inline-block;
+            background-color: #00ff89;
+            width: 10px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -92,17 +137,24 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center hero-bg">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6 z-10">
                 <div class="max-w-3xl">
-                    <p class="text-green-400 font-mono text-lg mb-4">Hi, I'm </p>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4">Naveen Bose.</h1>
-                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6">I build and secure networks.</h2>
+                    <p class="text-green-400 font-mono text-lg mb-4 typewriter-text" data-text="Hi, my name is"></p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 typewriter-text" data-text="Naveen Bose."></h1>
+                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6 typewriter-text" data-text="I build and secure networks."></h2>
                     <p class="text-lg text-gray-300 max-w-xl mb-8">
                         I'm a NOC Engineer with a passion for cybersecurity and ethical hacking. I specialize in network infrastructure and am now diving deep into offensive security to protect digital assets.
                     </p>
-                    <a href="#projects" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
-                        View My Work
-                    </a>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
+                            View My Work
+                        </a>
+                        <!-- IMPORTANT: Replace 'resume.pdf' with the actual path to your resume file -->
+                        <a href="resume.pdf" download="Naveen_Bose_Resume.pdf" class="inline-flex items-center gap-2 border border-green-500 text-green-500 hover:bg-green-500 hover:text-black font-bold py-3 px-8 rounded-md transition text-lg">
+                            <i data-lucide="download-cloud" class="w-5 h-5"></i>
+                            Download Resume
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -110,7 +162,7 @@
         <!-- About Section -->
         <section id="about" class="py-24 bg-black">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold mb-12 section-title inline-block">About Me</h2>
+                <h2 class="text-3xl font-bold mb-12 section-title inline-block typewriter-text" data-text="About Me"></h2>
                 <div class="flex flex-col md:flex-row items-start gap-12">
                     <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed">
                         <p class="mb-4">
@@ -124,8 +176,8 @@
                         </p>
                     </div>
                     <div class="md:w-1/3 w-full">
-                        <img src="https://placehold.co/400x400/1a1a1a/E5E7EB?text=Naveen+Bose"
-                             alt="Naveen Bose"
+                        <img src="https://placehold.co/400x400/1a1a1a/E5E7EB?text=Naveen+Bose" 
+                             alt="Naveen Bose" 
                              class="rounded-lg shadow-lg w-full h-auto object-cover border-2 border-gray-700"
                              onerror="this.onerror=null;this.src='https://placehold.co/400x400';">
                     </div>
@@ -136,7 +188,7 @@
         <!-- Skills Section -->
         <section id="skills" class="py-24 bg-black">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block">Technical Skills</h2>
+                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block typewriter-text" data-text="Technical Skills"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="skill-card">
                         <h3 class="text-xl font-bold text-green-400 mb-4">Networking & Security</h3>
@@ -144,7 +196,7 @@
                             <li>Router/Switch Config: Cisco, Juniper, Nokia, Huawei</li>
                             <li>Firewalls: Cisco ASA, Fortinet</li>
                             <li>VPN Configuration & Management</li>
-                            <li>Core Networking Protocols (TCP/IP, BGP, OSPF, ISIS, MPLS, )</li>
+                            <li>Core Networking Protocols (TCP/IP, BGP, OSPF)</li>
                         </ul>
                     </div>
                     <div class="skill-card">
@@ -178,9 +230,9 @@
         <!-- Projects Section -->
         <section id="projects" class="py-24 bg-black">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block">Featured Projects</h2>
+                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block typewriter-text" data-text="Featured Projects"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
+                    
                     <div class="project-card rounded-lg overflow-hidden flex flex-col">
                         <div class="p-6 flex-grow">
                             <h3 class="text-xl font-bold mb-2 text-white">AV Evasion Malware (Research)</h3>
@@ -232,7 +284,7 @@
                             <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
                         </div>
                     </div>
-
+                    
                      <div class="project-card rounded-lg overflow-hidden flex flex-col">
                         <div class="p-6 flex-grow">
                             <h3 class="text-xl font-bold mb-2 text-white">Bulk Logoff & VPN Switcher Tools</h3>
@@ -253,11 +305,11 @@
         <!-- Contact Section -->
         <section id="contact" class="py-24 bg-black">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                <h2 class="text-3xl font-bold mb-4 typewriter-text" data-text="Get In Touch"></h2>
                 <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">
                     I'm actively seeking opportunities in cybersecurity. Whether you have a question, a project, or just want to connect, my inbox is always open.
                 </p>
-                <a href="mailto:naveen.bose@proton.me" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
+                <a href="mailto:naveen.bose@example.com" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
                     Say Hello
                 </a>
                 <div class="flex justify-center space-x-6 mt-12">
@@ -296,12 +348,48 @@
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-
-        // Close mobile menu when a link is clicked
+        
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // Typewriter Effect
+        const typeWriter = (element) => {
+            const text = element.dataset.text;
+            element.innerHTML = ''; // Clear original text
+            let i = 0;
+            const speed = 50; // Speed of typing in milliseconds
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Remove cursor after typing
+                    const cursor = element.querySelector('.cursor');
+                    if (cursor) cursor.remove();
+                }
+            }
+            // Add cursor at the beginning
+            element.innerHTML = '<span class="cursor">&nbsp;</span>';
+            type();
+        };
+
+        // Intersection Observer to trigger animations on scroll
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter(entry.target);
+                    observer.unobserve(entry.target); // Animate only once
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+        document.querySelectorAll('.typewriter-text').forEach(el => {
+            observer.observe(el);
         });
     });
     </script>
