@@ -160,17 +160,29 @@
             font-size: 0.75rem;
         }
         .cert-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 600;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             transition: all 0.3s ease;
+            gap: 0.5rem;
+            height: 50px; /* Set a fixed height for alignment */
         }
         .cert-badge:hover {
             transform: scale(1.05);
         }
-        .tryhackme-badge {
-            background-color: #881414;
-            color: white;
+        .tryhackme-badge-container {
+            width: 350px;
+            height: 150px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+        .tryhackme-badge-container:hover {
+             transform: scale(1.05);
         }
 
         /* Social Links */
@@ -184,12 +196,12 @@
         }
 
         /* Typewriter Animation */
-        .typewriter {
+        .typewriter, .typewriter-once {
             display: inline-block;
             vertical-align: bottom;
             min-height: 1.2em;
         }
-        .typewriter .cursor {
+        .typewriter .cursor, .typewriter-once .cursor {
             display: inline-block;
             background-color: #00ff89;
             width: 10px;
@@ -206,7 +218,7 @@
         .animate-fade-in {
             animation: fade-in 1s ease-out forwards;
             opacity: 0;
-            animation-delay: 1.5s; /* Delay to start after typewriter */
+            animation-delay: 1.5s; 
         }
         @keyframes fade-in {
             to {
@@ -245,9 +257,9 @@
         <section id="home" class="min-h-screen flex items-center hero-bg">
             <div class="container mx-auto px-6 z-10">
                 <div class="max-w-3xl">
-                    <p class="text-green-400 font-mono text-lg mb-4 typewriter" data-text="Hi, my name is"></p>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 typewriter" data-text="Naveen Bose."></h1>
-                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6 typewriter" data-text="I build and secure networks."></h2>
+                    <p class="text-green-400 font-mono text-lg mb-4 typewriter-once" data-text="Hi, my name is"></p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 typewriter-once" data-text="Naveen Bose."></h1>
+                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6 typewriter-once" data-text="I build and secure networks."></h2>
                     <p class="text-lg text-gray-300 max-w-xl mb-8 animate-fade-in">
                         I'm a NOC Engineer with a passion for cybersecurity and ethical hacking. I specialize in network infrastructure and am now diving deep into offensive security to protect digital assets.
                     </p>
@@ -255,7 +267,7 @@
                         <a href="#projects" class="btn btn-primary">
                             View My Work
                         </a>
-                        <a href="resume.pdf" download="Naveen_Bose_Resume.pdf" class="btn btn-secondary">
+                        <a href="Naveen_Bose_Resume.pdf" download="Naveen_Bose_Resume.pdf" class="btn btn-secondary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
                             <span>Download Resume</span>
                         </a>
@@ -281,7 +293,7 @@
                         </p>
                     </div>
                     <div class="md:w-1/3 w-full">
-                        <img src="https://placehold.co/400x400/1a1a1a/E5E7EB?text=Naveen+Bose" 
+                        <img src="naveen.jpg" 
                              alt="Naveen Bose" 
                              class="rounded-lg shadow-lg w-full h-auto object-cover border-2 border-gray-700"
                              onerror="this.onerror=null;this.src='https://placehold.co/400x400';">
@@ -306,27 +318,38 @@
                     </div>
                     <div class="skill-card">
                         <h3 class="text-xl font-bold text-green-400 mb-4">Programming & Scripting</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
-                            <li>Python (for automation & tools)</li>
-                            <li>C (for low-level understanding)</li>
-                            <li>Java & JavaScript</li>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="#306998"/><path d="M45.52 83.28H34.24V43.2H58.48C63.28 43.2 66.88 44.16 69.28 46.08C71.68 48 72.88 50.48 72.88 53.52C72.88 55.6 72.32 57.44 71.2 59.04C70.08 60.64 68.48 61.84 66.4 62.64V62.88C69.2 63.52 71.28 64.96 72.64 67.2C74 69.44 74.64 72 74.64 74.8C74.64 78.16 73.6 80.8 71.52 82.72C69.44 84.64 66.48 85.6 62.64 85.6H45.52V83.28ZM45.52 61.2H60.4C63.44 61.2 65.6 60.48 66.88 59.04C68.16 57.6 68.8 55.76 68.8 53.52C68.8 51.28 68.16 49.44 66.88 48C65.6 46.56 63.44 45.84 60.4 45.84H45.52V61.2ZM45.52 83.04H62.64C65.84 83.04 68.16 82.24 69.6 80.64C71.04 79.04 71.76 77.04 71.76 74.64C71.76 72.24 71.04 70.24 69.6 68.64C68.16 67.04 65.84 66.24 62.64 66.24H45.52V83.04Z" fill="white"/><path d="M64 128C28.6538 128 0 99.3462 0 64C0 28.6538 28.6538 0 64 0V128Z" fill="#FFD43B"/><path d="M82.48 83.28H93.76V43.2H69.52C64.72 43.2 61.12 44.16 58.72 46.08C56.32 48 55.12 50.48 55.12 53.52C55.12 55.6 55.68 57.44 56.8 59.04C57.92 60.64 59.52 61.84 61.6 62.64V62.88C58.8 63.52 56.72 64.96 55.36 67.2C54 69.44 53.36 72 53.36 74.8C53.36 78.16 54.4 80.8 56.48 82.72C58.56 84.64 61.52 85.6 65.36 85.6H82.48V83.28ZM82.48 61.2H67.6C64.56 61.2 62.4 60.48 61.12 59.04C59.84 57.6 59.2 55.76 59.2 53.52C59.2 51.28 59.84 49.44 61.12 48C62.4 46.56 64.56 45.84 67.6 45.84H82.48V61.2ZM82.48 83.04H65.36C62.16 83.04 59.84 82.24 58.4 80.64C56.96 79.04 56.24 77.04 56.24 74.64C56.24 72.24 56.96 70.24 58.4 68.64C59.84 67.04 62.16 66.24 65.36 66.24H82.48V83.04Z" fill="white"/></svg><span>Python</span></li>
+                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 0C28.6533 0 0 28.6533 0 64C0 99.3467 28.6533 128 64 128C99.3467 128 128 99.3467 128 64C128 28.6533 99.3467 0 64 0Z" fill="#5C6BC0"/><path d="M40.8333 40.8333H87.1667V87.1667H40.8333V40.8333Z" fill="#FAFAFA"/><path d="M66.1667 40.8333H87.1667V61.8333H66.1667V40.8333Z" fill="#3F51B5"/><path d="M87.1667 64C87.1667 76.8533 76.8533 87.1667 64 87.1667C51.1467 87.1667 40.8333 76.8533 40.8333 64H87.1667Z" fill="#3F51B5"/></svg><span>C</span></li>
+                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M96.43 26.63L73.1 11.2C70.45 9.68 67.2 9.15 64 9.15C60.8 9.15 57.55 9.68 54.9 11.2L31.57 26.63C28.92 28.15 26.8 30.43 25.55 33.18L13.88 55.43C12.63 58.18 12 61.05 12 64C12 66.95 12.63 69.82 13.88 72.57L25.55 94.82C26.8 97.57 28.92 99.85 31.57 101.37L54.9 116.8C57.55 118.32 60.8 118.85 64 118.85C67.2 118.85 70.45 118.32 73.1 116.8L96.43 101.37C99.08 99.85 101.2 97.57 102.45 94.82L114.12 72.57C115.37 69.82 116 66.95 116 64C116 61.05 115.37 58.18 114.12 55.43L102.45 33.18C101.2 30.43 99.08 28.15 96.43 26.63Z" fill="#F44336"/><path d="M100 64C100 83.88 83.88 100 64 100C44.12 100 28 83.88 28 64C28 44.12 44.12 28 64 28C83.88 28 100 44.12 100 64Z" fill="#FAFAFA"/><path d="M86.13 64L64 86.13L53.46 75.59L75.59 53.46L86.13 64ZM64 41.87L41.87 64L52.41 74.54L74.54 52.41L64 41.87Z" fill="#F44336"/></svg><span>Java</span></li>
+                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H128V128H0V0Z" fill="#F7DF1E"/><path d="M61.92 96.16C67.68 97.28 73.2 96.64 77.28 94.4C81.6 92.08 83.68 88 83.28 84.4C82.88 80.8 80.48 78.48 76.4 77.12C72.24 75.84 66.88 74.88 62.48 74.08C57.52 73.28 53.68 72.64 51.04 71.68C48.88 70.88 47.6 69.6 47.6 67.6C47.6 65.84 48.48 64.4 50.4 63.28C52.24 62.16 54.8 61.6 57.92 61.6C62.4 61.6 65.84 62.48 68.08 64.4C69.2 65.36 69.92 66.56 70.16 67.84L82.4 66.4C82.08 63.28 80.48 60.64 77.52 58.64C74.64 56.56 70.4 55.6 64.88 55.6C59.28 55.6 54.88 56.48 51.52 58.24C48.24 60 46.56 62.4 46.56 65.44C46.56 68.8 48.16 71.44 51.36 73.2C54.56 74.96 59.2 76.24 65.2 76.96C70.56 77.68 74.48 78.32 76.88 79.2C79.2 80.08 80.4 81.44 80.4 83.44C80.4 85.44 79.44 86.96 77.44 88.08C75.52 89.2 72.72 89.76 69.2 89.76C64.4 89.76 60.88 88.88 58.48 87.04C57.28 86.16 56.48 84.96 56.16 83.68L43.92 85.12C44.4 88.8 46.4 91.84 49.68 94.08C52.88 96.24 57.2 97.28 61.92 97.28V96.16Z" fill="#231F20"/></svg><span>JavaScript</span></li>
                         </ul>
                     </div>
                     <div class="skill-card">
                         <h3 class="text-xl font-bold text-green-400 mb-4">Operating Systems</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
-                            <li>Linux (Kali, Ubuntu, CentOS)</li>
-                            <li>Windows (Client & Server)</li>
-                            <li>macOS</li>
+                        <ul class="space-y-4 text-gray-300">
+                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M128 256C198.7 256 256 198.7 256 128C256 57.3 198.7 0 128 0C57.3 0 0 57.3 0 128C0 198.7 57.3 256 128 256Z" fill="#26A4D3"/><path d="M127.5 255C197.88 255 255 197.88 255 127.5C255 57.12 197.88 0 127.5 0C57.12 0 0 57.12 0 127.5C0 197.88 57.12 255 127.5 255Z" fill="#26A4D3"/><path d="M168.61 140.48C168.61 140.48 168.18 147.78 162.13 153.29C156.08 158.8 149.03 158.8 149.03 158.8L127.5 135.8L105.97 158.8C105.97 158.8 98.92 158.8 92.87 153.29C86.82 147.78 86.39 140.48 86.39 140.48L113.84 120.35L86.39 100.22C86.39 100.22 86.82 92.92 92.87 87.41C98.92 81.9 105.97 81.9 105.97 81.9L127.5 104.9L149.03 81.9C149.03 81.9 156.08 81.9 162.13 87.41C168.18 92.92 168.61 100.22 168.61 100.22L141.16 120.35L168.61 140.48Z" fill="white"/></svg><span>Kali Linux</span></li>
+                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="#E95420"/><path d="M30.4 64C30.4 45.44 45.44 30.4 64 30.4C82.56 30.4 97.6 45.44 97.6 64C97.6 82.56 82.56 97.6 64 97.6C45.44 97.6 30.4 82.56 30.4 64Z" fill="white"/><path d="M48.88 48.88C43.28 54.48 40.24 62 41.68 69.52L69.52 41.68C62 40.24 54.48 43.28 48.88 48.88Z" fill="#E95420"/><path d="M78.4 78.4C84 72.8 87.04 65.28 85.6 57.76L57.76 85.6C65.28 87.04 72.8 84 78.4 78.4Z" fill="#E95420"/></svg><span>Ubuntu</span></li>
+                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="#2D2C7A"/><path d="M104.96 64H23.04L27.68 30.4H100.32L104.96 64ZM27.68 97.6H100.32L104.96 64H23.04L27.68 97.6Z" fill="white"/><path d="M64 104.96L23.04 64H64V104.96ZM64 23.04L23.04 64H64V23.04Z" fill="#953989"/></svg><span>CentOS</span></li>
+                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 128V0H128V128H0Z" fill="#0078D4"/><path d="M58.32 58.32H23.2V23.2H58.32V58.32ZM104.8 58.32H69.68V23.2H104.8V58.32ZM58.32 104.8H23.2V69.68H58.32V104.8ZM104.8 104.8H69.68V69.68H104.8V104.8Z" fill="white"/></svg><span>Windows</span></li>
+                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M106.88 128C106.88 128 128 105.6 128 76C128 46.4 104.96 36.48 88.64 36.48C69.12 36.48 53.12 48.96 44.8 48.96C35.84 48.96 24.32 36.48 8.96 36.48C-12.8 36.48 3.84 80 26.88 104C38.4 116 51.2 128.64 68.48 127.36C84.48 126.08 89.6 115.2 106.88 115.2C124.16 115.2 118.08 128 106.88 128ZM88.32 32C92.8 21.12 104.32 14.08 112.64 11.2C109.44 2.56 94.72 0 80.64 0C68.48 0 56.96 4.48 48.64 4.48C40.32 4.48 29.44 0 16.64 0C-1.6 0.64 0.32 23.04 12.8 33.28C20.48 39.04 30.72 41.6 38.4 41.6C46.72 41.6 59.52 32 72.32 32C78.08 32 83.2 32 88.32 32Z" fill="white"/></svg><span>macOS</span></li>
                         </ul>
                     </div>
                 </div>
                  <div class="text-center mt-16">
                     <h3 class="text-2xl font-bold text-white mb-4">Certifications & Achievements</h3>
                     <div class="flex justify-center items-center flex-wrap gap-4">
-                        <span class="cert-badge bg-blue-600">Cisco CCNA</span>
-                        <span class="cert-badge bg-gray-700">CEH (In Progress)</span>
-                        <span class="cert-badge tryhackme-badge">Top 1% on TryHackMe</span>
+                        <a href="https://www.credly.com/users/naveen-bose.16895297" target="_blank" rel="noopener noreferrer" class="cert-badge bg-gray-800 text-white">
+                            <svg class="h-8 w-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#049FD9"/><path d="M21 21V43H26V32.3333L32 28.4444L38 32.3333V43H43V21L32 15L21 21Z" fill="white"/></svg>
+                            <span>Cisco CCNA</span>
+                        </a>
+                        <div class="cert-badge bg-gray-800 text-white">
+                            <svg class="h-8 w-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#D9232A"/><path d="M50 89C71.5228 89 89 71.5228 89 50C89 28.4772 71.5228 11 50 11C28.4772 11 11 28.4772 11 50C11 71.5228 28.4772 89 50 89Z" fill="white"/><path d="M67.33 34.5H32.67C32.02 34.5 31.5 35.02 31.5 35.67V64.33C31.5 64.98 32.02 65.5 32.67 65.5H67.33C67.98 65.5 68.5 64.98 68.5 64.33V35.67C68.5 35.02 67.98 34.5 67.33 34.5ZM50 59.56C44.72 59.56 40.44 55.28 40.44 50C40.44 44.72 44.72 40.44 50 40.44C55.28 40.44 59.56 44.72 59.56 50C59.56 55.28 55.28 59.56 50 59.56Z" fill="#D9232A"/></svg>
+                            <span>CEH (In Progress)</span>
+                        </div>
+                        <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="tryhackme-badge-container inline-block">
+                            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1290193" style="border:none; width: 100%; height: 100%; vertical-align: middle;"></iframe>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -423,7 +446,7 @@
                     <a href="https://www.linkedin.com/in/naveen-bose-612134256" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                     </a>
-                    <a href="#" aria-label="TryHackMe" class="social-link">
+                    <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" aria-label="TryHackMe" class="social-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </a>
                 </div>
@@ -470,42 +493,75 @@
                 logo.appendChild(cursorSpan);
             }
 
-            // --- Typewriter Effect ---
-            const typeWriter = (element) => {
+            // --- Typewriter Effect (Looping) ---
+            const typeWriterLoop = (element) => {
                 const text = element.dataset.text;
-                element.innerHTML = ''; 
-                let i = 0;
-                const speed = 50; 
+                const typingSpeed = 50;
+                const erasingSpeed = 30;
+                const loopDelay = 3000;
 
-                const cursor = document.createElement('span');
-                cursor.className = 'cursor';
-                cursor.innerHTML = '&nbsp;';
-                element.appendChild(cursor);
+                let textIndex = 0;
+                let isErasing = false;
 
-                function type() {
-                    if (i < text.length) {
-                        cursor.insertAdjacentText('beforebegin', text.charAt(i));
-                        i++;
-                        setTimeout(type, speed);
+                function loop() {
+                    const currentText = text.substring(0, textIndex);
+                    element.innerHTML = currentText;
+                    element.insertAdjacentHTML('beforeend', '<span class="cursor">&nbsp;</span>');
+
+                    if (!isErasing) {
+                        if (textIndex < text.length) {
+                            textIndex++;
+                            setTimeout(loop, typingSpeed);
+                        } else {
+                            isErasing = true;
+                            setTimeout(loop, loopDelay);
+                        }
                     } else {
-                        cursor.remove(); 
+                        if (textIndex > 0) {
+                            textIndex--;
+                            setTimeout(loop, erasingSpeed);
+                        } else {
+                            isErasing = false;
+                            setTimeout(loop, loopDelay / 2);
+                        }
+                    }
+                }
+                loop();
+            };
+            
+            // --- Typewriter Effect (Once) ---
+            const typeWriterOnce = (element) => {
+                const text = element.dataset.text;
+                let textIndex = 0;
+                element.innerHTML = ''; // Clear content
+                
+                function type() {
+                    if (textIndex < text.length) {
+                        element.innerHTML += text.charAt(textIndex);
+                        textIndex++;
+                        setTimeout(type, 50);
                     }
                 }
                 type();
             };
+
 
             // --- Intersection Observer for Animations ---
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
-                        typeWriter(el);
+                        if (el.classList.contains('typewriter-once')) {
+                           typeWriterOnce(el);
+                        } else {
+                           typeWriterLoop(el);
+                        }
                         observer.unobserve(el); 
                     }
                 });
             }, { threshold: 0.2 });
 
-            document.querySelectorAll('.typewriter').forEach(el => {
+            document.querySelectorAll('.typewriter, .typewriter-once').forEach(el => {
                 observer.observe(el);
             });
         });
