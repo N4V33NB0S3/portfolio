@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen Bose - Cybersecurity & Networking Professional</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & Roboto Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-icons@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #E5E7EB;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .hero-bg {
+            background-color: #111;
+            background-image:
+                radial-gradient(circle at 25px 25px, rgba(0, 255, 137, 0.2) 2px, transparent 0),
+                radial-gradient(circle at 75px 75px, rgba(0, 255, 137, 0.2) 2px, transparent 0);
+            background-size: 100px 100px;
+        }
+        .section-title {
+            border-bottom: 3px solid #00ff89;
+            padding-bottom: 0.5rem;
+        }
+        .project-card {
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px -15px rgba(0, 255, 137, 0.2);
+        }
+        .skill-card {
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        .tag {
+            background-color: #2a2a2a;
+            color: #00ff89;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+        }
+        .tryhackme-badge {
+            background-color: #881414;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-white font-mono">NB_></a>
+            <nav class="hidden md:flex space-x-8 font-mono">
+                <a href="#about" class="text-gray-300 hover:text-green-400 transition">./about</a>
+                <a href="#skills" class="text-gray-300 hover:text-green-400 transition">./skills</a>
+                <a href="#projects" class="text-gray-300 hover:text-green-400 transition">./projects</a>
+                <a href="#contact" class="text-gray-300 hover:text-green-400 transition">./contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 bg-opacity-90 backdrop-blur-sm">
+            <a href="#about" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">About</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Skills</a>
+            <a href="#projects" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Projects</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center hero-bg">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl">
+                    <p class="text-green-400 font-mono text-lg mb-4">Hi, I'm </p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4">Naveen Bose.</h1>
+                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6">I build and secure networks.</h2>
+                    <p class="text-lg text-gray-300 max-w-xl mb-8">
+                        I'm a NOC Engineer with a passion for cybersecurity and ethical hacking. I specialize in network infrastructure and am now diving deep into offensive security to protect digital assets.
+                    </p>
+                    <a href="#projects" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
+                        View My Work
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold mb-12 section-title inline-block">About Me</h2>
+                <div class="flex flex-col md:flex-row items-start gap-12">
+                    <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed">
+                        <p class="mb-4">
+                            After completing my B.E. in Mechanical Engineering, I explored various career paths and discovered my true calling in the intricate world of cybersecurity. This led me to my current role as a Network Operations Centre Engineer, where I manage and secure critical network infrastructure.
+                        </p>
+                        <p class="mb-4">
+                            My passion lies in the offensive side of security. I am an avid participant in Capture The Flag (CTF) competitions and have proudly ranked in the **top 1% on TryHackMe**. This hands-on experience in penetration testing fuels my drive to understand and defeat modern cyber threats.
+                        </p>
+                        <p>
+                            With a **CCNA** certification under my belt and currently pursuing both a **Certified Ethical Hacker (CEH)** certification and an **MCA in Cybersecurity**, I am committed to continuous learning and deepening my expertise in this dynamic field.
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 w-full">
+                        <img src="https://placehold.co/400x400/1a1a1a/E5E7EB?text=Naveen+Bose"
+                             alt="Naveen Bose"
+                             class="rounded-lg shadow-lg w-full h-auto object-cover border-2 border-gray-700"
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block">Technical Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="skill-card">
+                        <h3 class="text-xl font-bold text-green-400 mb-4">Networking & Security</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Router/Switch Config: Cisco, Juniper, Nokia, Huawei</li>
+                            <li>Firewalls: Cisco ASA, Fortinet</li>
+                            <li>VPN Configuration & Management</li>
+                            <li>Core Networking Protocols (TCP/IP, BGP, OSPF, ISIS, MPLS, )</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3 class="text-xl font-bold text-green-400 mb-4">Programming & Scripting</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Python (for automation & tools)</li>
+                            <li>C (for low-level understanding)</li>
+                            <li>Java & JavaScript</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3 class="text-xl font-bold text-green-400 mb-4">Operating Systems</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Linux (Kali, Ubuntu, CentOS)</li>
+                            <li>Windows (Client & Server)</li>
+                            <li>macOS</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="text-center mt-12">
+                    <h3 class="text-2xl font-bold text-white mb-4">Certifications & Achievements</h3>
+                    <div class="flex justify-center items-center flex-wrap gap-4">
+                        <span class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Cisco CCNA</span>
+                        <span class="bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">CEH (In Progress)</span>
+                        <span class="tryhackme-badge font-semibold py-2 px-4 rounded-lg">Top 1% on TryHackMe</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block">Featured Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">AV Evasion Malware (Research)</h3>
+                            <p class="text-gray-400 mb-4">Developing a proof-of-concept malware designed to evade detection by common antivirus solutions and Windows Defender for research and educational purposes.</p>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Python</span><span class="tag">C</span><span class="tag">Windows API</span><span class="tag">Reverse Engineering</span>
+                            </div>
+                            <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">FOMA - DoS Tool (Research)</h3>
+                            <p class="text-gray-400 mb-4">"Folder Malware" (FOMA) is a tool that causes a Denial of Service by rapidly creating nested folders, demonstrating a simple yet effective resource exhaustion attack.</p>
+                        </div>
+                         <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Python</span><span class="tag">DoS</span><span class="tag">Scripting</span>
+                            </div>
+                            <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Network Monitoring Tool</h3>
+                            <p class="text-gray-400 mb-4">A custom CLI tool for monitoring network status, device uptime, and traffic, built to automate parts of my NOC responsibilities.</p>
+                        </div>
+                         <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Python</span><span class="tag">SNMP</span><span class="tag">CLI</span>
+                            </div>
+                            <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
+                        </div>
+                    </div>
+
+                     <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Raspberry Pi Meshnet Media Server</h3>
+                            <p class="text-gray-400 mb-4">Created a decentralized media server using Raspberry Pis on a mesh network, ensuring resilient media access without a central point of failure.</p>
+                        </div>
+                         <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Raspberry Pi</span><span class="tag">Linux</span><span class="tag">Mesh Networking</span>
+                            </div>
+                            <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
+                        </div>
+                    </div>
+
+                     <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Bulk Logoff & VPN Switcher Tools</h3>
+                            <p class="text-gray-400 mb-4">Developed various CLI tools to automate repetitive tasks, including logging off multiple remote sessions and quickly switching between different VPN profiles.</p>
+                        </div>
+                         <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Python</span><span class="tag">Automation</span><span class="tag">CLI</span>
+                            </div>
+                            <a href="#" class="text-green-400 hover:text-green-300 transition flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> View on GitHub</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-black">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">
+                    I'm actively seeking opportunities in cybersecurity. Whether you have a question, a project, or just want to connect, my inbox is always open.
+                </p>
+                <a href="mailto:naveen.bose@proton.me" class="inline-block bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-8 rounded-md transition text-lg">
+                    Say Hello
+                </a>
+                <div class="flex justify-center space-x-6 mt-12">
+                    <a href="#" aria-label="GitHub" class="text-gray-400 hover:text-green-400"><i data-lucide="github" class="w-8 h-8"></i></a>
+                    <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-green-400"><i data-lucide="linkedin" class="w-8 h-8"></i></a>
+                    <a href="#" aria-label="TryHackMe" class="text-gray-400 hover:text-green-400"><i data-lucide="shield" class="w-8 h-8"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-6">
+        <p class="text-gray-600 font-mono">Designed & Built by Naveen Bose</p>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('bg-black', 'bg-opacity-80', 'backdrop-blur-sm', 'shadow-lg');
+            } else {
+                header.classList.remove('bg-black', 'bg-opacity-80', 'backdrop-blur-sm', 'shadow-lg');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
