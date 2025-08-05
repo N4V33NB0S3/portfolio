@@ -14,121 +14,102 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
 
     <style>
-        /* Base Styles */
+        /* Base Styles - Matrix Theme */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #E5E7EB;
+            background-color: #000000;
+            color: #00ff41; /* Matrix Green */
             overflow-x: hidden;
         }
 
-        .font-mono {
+        /* Mono font for terminal-like elements */
+        h1, h2, h3, .nav-link, #logo, .btn, .tag, .section-title, .typewriter, footer p, .project-link, .cert-badge span {
             font-family: 'Roboto Mono', monospace;
         }
 
-        /* Hero Section Background & Effects */
-        .hero-bg {
-            background-color: #050505;
-            background-image:
-                radial-gradient(circle at 25px 25px, rgba(0, 255, 137, 0.1) 1px, transparent 0),
-                radial-gradient(circle at 75px 75px, rgba(0, 255, 137, 0.1) 1px, transparent 0);
-            background-size: 100px 100px;
-            position: relative;
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
+        /* Canvas for Matrix Rain */
+        #matrix-canvas {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(18, 18, 18, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
-            z-index: 2;
-            background-size: 100% 3px, 5px 100%;
-            pointer-events: none;
-            animation: glitch 0.4s linear infinite alternate-reverse;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place canvas behind all content */
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            25% { transform: translate(1px, -1px); }
-            50% { transform: translate(-1px, 1px); }
-            75% { transform: translate(1px, 1px); }
-            100% { transform: translate(-1px, -1px); }
+        /* Glassmorphism Container Style */
+        .content-container {
+            background: rgba(10, 25, 10, 0.25);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(0, 255, 65, 0.3);
         }
 
         /* Header & Navigation */
+        #header {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
         .nav-link {
-            color: #9ca3af; /* gray-400 */
+            color: #00ff41;
             transition: all 0.3s ease;
             text-shadow: 0 0 5px transparent;
+            font-size: 1.25rem;
         }
         .nav-link:hover {
-            color: #00ff89;
-            text-shadow: 0 0 10px rgba(0, 255, 137, 0.7);
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
         }
         #logo-cursor {
             animation: blink 1s infinite;
-            background-color: #00ff89;
+            background-color: #00ff41;
             display: inline-block;
-            width: 10px;
-            height: 1.1em;
+            width: 12px;
+            height: 1.5em;
             vertical-align: bottom;
-            margin-left: 1px;
+            margin-left: 2px;
         }
 
         /* Section Title */
         .section-title {
             display: inline-block;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 2.5rem; /* text-4xl */
             font-weight: 700;
-            border-bottom: 3px solid #00ff89;
+            border-bottom: 3px solid #00ff41;
             padding-bottom: 0.5rem;
-            text-shadow: 0 0 8px rgba(0, 255, 137, 0.5);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
         }
 
         /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             font-weight: 700;
             padding: 0.75rem 2rem;
-            border-radius: 0.375rem; /* rounded-md */
+            border: 2px solid #00ff41;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            color: #00ff41;
+            background: transparent;
         }
-        .btn-primary {
-            background-color: #00ff89;
-            color: #0a0a0a;
-            box-shadow: 0 0 15px rgba(0, 255, 137, 0.3);
-        }
-        .btn-primary:hover {
-            background-color: #1aff9a;
-            box-shadow: 0 0 25px rgba(0, 255, 137, 0.6);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            border: 1px solid #00ff89;
-            color: #00ff89;
-        }
-        .btn-secondary:hover {
-            background-color: #00ff89;
-            color: #0a0a0a;
-            box-shadow: 0 0 20px rgba(0, 255, 137, 0.5);
+        .btn:hover {
+            background-color: #00ff41;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
             transform: translateY(-2px);
         }
 
         /* Cards & Tags */
-        .project-card, .skill-card {
-            background-color: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            border-radius: 0.5rem;
+        .card {
+            background-color: rgba(0, 20, 0, 0.4);
+            border: 1px solid #00ff41;
+            border-radius: 0; /* Sharp edges */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
             transform: translateY(20px);
@@ -140,81 +121,61 @@
                 transform: translateY(0);
             }
         }
-        .project-card:hover, .skill-card:hover {
+        .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 30px -15px rgba(0, 255, 137, 0.3);
+            box-shadow: 0 10px 30px -15px rgba(0, 255, 65, 0.4);
         }
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
-            color: #00ff89;
+            gap: 0.5rem;
+            color: #00ff41;
             transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
         .project-link:hover {
-            color: #1aff9a;
-            text-shadow: 0 0 8px rgba(0, 255, 137, 0.5);
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
         }
         .tag {
-            background-color: #2a2a2a;
-            color: #00ff89;
+            background-color: rgba(0, 255, 65, 0.1);
+            color: #00ff41;
             padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            font-size: 0.9rem;
         }
-        .cert-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+        .cert-badge, .tryhackme-badge-container {
+            border: 1px solid #00ff41;
             transition: all 0.3s ease;
-            gap: 0.5rem;
-            height: 50px;
         }
-        .cert-badge:hover {
+        .cert-badge:hover, .tryhackme-badge-container:hover {
             transform: scale(1.05);
-        }
-        .tryhackme-badge-container {
-            width: 350px;
-            height: 90px; /* Adjusted to fit the badge content perfectly */
-            border-radius: 0.5rem;
-            overflow: hidden;
-            border: 1px solid #2a2a2a;
-            transition: all 0.3s ease;
-            vertical-align: middle;
-        }
-        .tryhackme-badge-container:hover {
-             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
         }
 
         /* Social Links */
         .social-link {
-            color: #9ca3af;
+            color: #00ff41;
             transition: all 0.3s ease;
         }
         .social-link:hover {
-            color: #00ff89;
+            color: #ffffff;
             transform: translateY(-3px);
+            text-shadow: 0 0 10px #00ff41;
         }
 
         /* Typewriter Animation */
-        .typewriter, .typewriter-once {
+        .typewriter .cursor {
             display: inline-block;
-            vertical-align: bottom;
-            min-height: 1.2em;
-        }
-        .typewriter .cursor, .typewriter-once .cursor {
-            display: inline-block;
-            background-color: #00ff89;
-            width: 10px;
+            background-color: #00ff41;
+            width: 12px;
             height: 1.2em;
             margin-left: 2px;
             animation: blink 1s infinite;
         }
         .whoami::before {
-            content: '$ ';
+            content: '>> ';
+            color: #00ff41;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -236,45 +197,48 @@
 </head>
 <body class="antialiased">
 
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-white font-mono" id="logo">NB_</a>
-            <nav class="hidden md:flex space-x-8 font-mono">
+            <a href="#home" class="text-3xl font-bold text-white" id="logo">NB_</a>
+            <nav class="hidden md:flex space-x-8">
                 <a href="#about" class="nav-link">./about</a>
                 <a href="#skills" class="nav-link">./skills</a>
                 <a href="#projects" class="nav-link">./projects</a>
                 <a href="#contact" class="nav-link">./contact</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 bg-opacity-90 backdrop-blur-sm">
-            <a href="#about" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">About</a>
-            <a href="#skills" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Skills</a>
-            <a href="#projects" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Projects</a>
-            <a href="#contact" class="block py-2 px-4 text-sm text-white hover:bg-gray-800">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90 backdrop-blur-sm">
+            <a href="#about" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">./About</a>
+            <a href="#skills" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">./Skills</a>
+            <a href="#projects" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">./Projects</a>
+            <a href="#contact" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">./Contact</a>
         </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex items-center hero-bg">
+        <section id="home" class="min-h-screen flex items-center">
             <div class="container mx-auto px-6 z-10">
-                <div class="max-w-3xl">
-                    <p class="text-green-400 font-mono text-lg mb-4 typewriter-once whoami" data-text="whoami"></p>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 typewriter-once" data-text="Naveen Bose"></h1>
-                    <h2 class="text-4xl md:text-6xl font-bold text-gray-400 mb-6 typewriter-once" data-text="I build and secure networks."></h2>
-                    <p class="text-lg text-gray-300 max-w-xl mb-8 animate-fade-in">
+                <div class="max-w-4xl">
+                    <p class="text-2xl mb-4 typewriter whoami" data-text="whoami"></p>
+                    <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 typewriter" data-text="Naveen Bose"></h1>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-300 mb-6 typewriter" data-text="I build and secure networks."></h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mb-8 animate-fade-in leading-relaxed">
                         I'm a NOC Engineer with a passion for cybersecurity and ethical hacking. I specialize in network infrastructure and am now diving deep into offensive security to protect digital assets.
                     </p>
                     <div class="flex flex-wrap gap-4 animate-fade-in">
-                        <a href="#projects" class="btn btn-primary">
+                        <a href="#projects" class="btn">
                             View My Work
                         </a>
-                        <a href="Naveen_Bose_Resume.pdf" download="Naveen_Bose_Resume.pdf" class="btn btn-secondary">
+                        <a href="Naveen_Bose_Resume.pdf" download="Naveen_Bose_Resume.pdf" class="btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
                             <span>Download Resume</span>
                         </a>
@@ -284,78 +248,77 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-24 bg-black">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title typewriter" data-text="About Me"></h2>
+        <section id="about" class="py-24">
+             <div class="container mx-auto px-6 content-container p-8">
+                <h2 class="section-title typewriter" data-text="About_Me"></h2>
                 <div class="flex flex-col md:flex-row items-start gap-12 mt-12">
                     <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed">
                         <p class="mb-4">
                             After completing my B.E. in Mechanical Engineering, I explored various career paths and discovered my true calling in the intricate world of cybersecurity. This led me to my current role as a Network Operations Centre Engineer, where I manage and secure critical network infrastructure.
                         </p>
                         <p class="mb-4">
-                            My passion lies in the offensive side of security. I am an avid participant in Capture The Flag (CTF) competitions and have proudly ranked in the **top 1% on TryHackMe**. This hands-on experience in penetration testing fuels my drive to understand and defeat modern cyber threats.
+                            My passion lies in the offensive side of security. I am an avid participant in Capture The Flag (CTF) competitions and have proudly ranked in the <strong class="text-green-300">top 1% on TryHackMe</strong>. This hands-on experience in penetration testing fuels my drive to understand and defeat modern cyber threats.
                         </p>
                         <p>
-                            With a **CCNA** certification under my belt and currently pursuing both a **Certified Ethical Hacker (CEH)** certification and an **MCA in Cybersecurity**, I am committed to continuous learning and deepening my expertise in this dynamic field.
+                            With a <strong class="text-green-300">CCNA</strong> certification under my belt and currently pursuing both a <strong class="text-green-300">Certified Ethical Hacker (CEH)</strong> certification and an <strong class="text-green-300">MCA in Cybersecurity</strong>, I am committed to continuous learning and deepening my expertise in this dynamic field.
                         </p>
                     </div>
                     <div class="md:w-1/3 w-full">
                         <img src="naveen.jpeg"
                              alt="Naveen Bose"
-                             class="rounded-lg shadow-lg w-full h-auto object-cover border-2 border-gray-700"
-                             onerror="this.onerror=null;this.src='https://placehold.co/400x400';">
+                             class="w-full h-auto object-cover border-2 border-green-500"
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/000000/00FF41?text=Image';">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-24 bg-black">
+        <section id="skills" class="py-24">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-title inline-block typewriter" data-text="Technical Skills"></h2>
+                <h2 class="section-title inline-block typewriter" data-text="Technical_Arsenal"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
-                    <div class="skill-card">
-                        <h3 class="text-xl font-bold text-green-400 mb-4">Networking & Security</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
-                            <li>Router/Switch Config: Cisco, Juniper, Nokia, Huawei</li>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">Networking & Security</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                            <li>Router/Switch Config: Cisco, Juniper, Huawei, Nokia etc.</li>
                             <li>Firewalls: Cisco ASA, Fortinet</li>
-                            <li>VPN Configuration & Management(IPSEC (IKEv1/v2), SSL VPN, OPENVPN, WireGaurd)</li>
-                            <li>Core Networking Protocols (TCP/IP, BGP, OSPF, ISIS, MPLS)</li>
+                            <li>VPNs: IPSEC(IKEv1/v2), SSL VPN, WireGaurd</li>
+                            <li>Protocols: TCP/IP, BGP, OSPF, ISIS, MPLS</li>
                         </ul>
                     </div>
-                    <div class="skill-card">
-                        <h3 class="text-xl font-bold text-green-400 mb-4">Programming & Scripting</h3>
-                        <ul class="space-y-4 text-gray-300">
-                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><linearGradient id="python-original-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#5A9FD4"></stop><stop offset="1" stop-color="#306998"></stop></linearGradient><linearGradient id="python-original-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#FFD43B"></stop><stop offset="1" stop-color="#FFE873"></stop></linearGradient><path fill="url(#python-original-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"></path><path fill="url(#python-original-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"></path><radialGradient id="python-original-c" cx="1825.678" cy="444.45" r="26.743" gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B8B8B8" stop-opacity=".498"></stop><stop offset="1" stop-color="#7F7F7F" stop-opacity="0"></stop></radialGradient><path opacity=".444" fill="url(#python-original-c)" d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"></path></svg><span>Python</span></li>
-                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><path fill="#a9bacd" d="M125 50c-4-32-24-50-62-50C29 0 3 24 3 64c0 39 24 64 64 64 32 0 55-19 58-50H87c-2 11-8 20-20 20-21 0-24-16-24-33 0-23 8-35 22-35 13 0 20 7 22 20z"></path></svg><span>C</span></li>
-                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><path fill="#0074BD" d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"></path><path fill="#EA2D2E" d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z"></path><path fill="#0074BD" d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z"></path><path fill="#EA2D2E" d="M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z"></path><path fill="#0074BD" d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z"></path></svg><span>Java</span></li>
-                            <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z"></path><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"></path></svg><span>JavaScript</span></li>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">Programming & Scripting</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                             <li>Python</li>
+                             <li>C</li>
+                             <li>Java</li>
+                             <li>JavaScript</li>
                         </ul>
                     </div>
-                    <div class="skill-card">
-                        <h3 class="text-xl font-bold text-green-400 mb-4">Operating Systems</h3>
-                        <ul class="space-y-4 text-gray-300">
-                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><path fill="#2777ff" d="M68.15 31.699s-10.512-.7-28.411 4.901c-18.242 5.708-28.587 13.798-28.587 13.798s27.188-15.18 57.876-16.043zm39.206 16.505 1.367-.09s-7.83-9.499-22.815-14.126c8.424 3.424 15.756 7.961 21.448 14.215zm2.237 3.946c.21-.364.888 1.158 1.403 1.797.022.128.058.205-.24.144-.026-.131-.069-.17-.069-.17s-.72-.428-.942-.732c-.22-.305-.26-.837-.152-1.039m18.39 45.218s1.662-19.081-28.317-23.48a97.5 97.5 0 0 0-13.465-1c-24.029.318-24.905-27.713-6.798-29.128 7.503-.62 16.463 3.429 25.223 7.508-.033 1.088.012 2.055.727 2.948s3.46 1.867 4.336 2.37 3.687 2.29 5.409 4.531c.373-.698 3.491-2.728 3.491-2.728s-.747.016-2.485-.633c-1.738-.65-3.8-2.615-3.849-2.728-.048-.114-.08-.292.325-.374.309-.26-.39-1.104-.698-1.412-.309-.309-2.371-3.816-2.42-3.898-.049-.08-.065-.162-.211-.26-.455-.146-2.453.212-2.453.212s-3.072-1.51-4.13-4.762c.015.57-.527 1.192 0 2.5-1.603-.677-2.978-1.833-4.064-4.689-.646 1.625 0 2.658 0 2.658s-3.772-1.054-4.375-4.533c-.662 1.562 0 2.5 0 2.5s-6.15-3.208-16.367-3.254c-6.841-.628-8.265-12.662-7.631-14.688 0 0-9.867-5.2-29.29-7.497-19.424-2.298-35.353-.346-35.353-.346s34.4-1.651 61.96 9.506c.936 4.19 3.754 11.169 5.272 14.523-4.343 3.004-9.241 5.827-10.004 15.843s7.848 18.824 18.526 19.095c10.139.54 17.144.617 25.635 5.02 8.105 4.48 14.75 18.136 15.408 30.417.71-9.112-2.71-28.707-18.666-34.656 22.302 3.902 24.264 20.436 24.264 20.436zM67.624 30.202l-.802-2.588s-13.241-2.351-31.044-1.086C17.975 27.794 0 34.025 0 34.025s36.78-9.254 67.624-3.823"></path></svg><span>Kali Linux</span></li>
-                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128"><path fill="#E95420" d="M104.663 0H24v128h80.663V0Z"></path><path fill="#fff" d="M42.443 90.31c4.611 0 8.35-3.768 8.35-8.416 0-4.648-3.739-8.416-8.35-8.416-4.612 0-8.35 3.768-8.35 8.416 0 4.648 3.738 8.416 8.35 8.416Zm34.778-18.454c4.612 0 8.35-3.768 8.35-8.416 0-4.648-3.738-8.416-8.35-8.416-4.611 0-8.35 3.768-8.35 8.416 0 4.648 3.739 8.416 8.35 8.416Zm-15.945 31.702c-6.016-1.299-11.042-5.17-13.868-10.662a11.934 11.934 0 0 1-7.14.883c3.419 8.464 10.67 14.611 19.573 16.535 1.953.422 3.943.627 5.93.614a12.107 12.107 0 0 1-2.444-7.037 20.048 20.048 0 0 1-2.048-.336l-.003.003Zm14.066 8.461c4.612 0 8.35-3.768 8.35-8.416 0-4.648-3.738-8.416-8.35-8.416-4.611 0-8.35 3.768-8.35 8.416 0 4.648 3.739 8.416 8.35 8.416Zm11.62-11.507c2.597-3.3 4.426-7.2 5.305-11.344a27.771 27.771 0 0 0-3.937-20.963 12.1 12.1 0 0 1-4.695 5.542 20.736 20.736 0 0 1 1.93 13.975 20.658 20.658 0 0 1-2.597 6.521 12.092 12.092 0 0 1 3.997 6.272l-.003-.003ZM41.8 69.824a11.785 11.785 0 0 1 3.156.256c1.361.294 2.64.813 3.812 1.549 3.76-5.45 9.826-8.72 16.399-8.842a12.213 12.213 0 0 1 2.534-6.826c-10.503-.838-20.708 4.625-25.905 13.866l.003-.003Z"></path></svg><span>Ubuntu</span></li>
-                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="#2D2C7A"/><path d="M104.96 64H23.04L27.68 30.4H100.32L104.96 64ZM27.68 97.6H100.32L104.96 64H23.04L27.68 97.6Z" fill="white"/><path d="M64 104.96L23.04 64H64V104.96ZM64 23.04L23.04 64H64V23.04Z" fill="#953989"/></svg><span>CentOS</span></li>
-                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 128V0H128V128H0Z" fill="#0078D4"/><path d="M58.32 58.32H23.2V23.2H58.32V58.32ZM104.8 58.32H69.68V23.2H104.8V58.32ZM58.32 104.8H23.2V69.68H58.32V104.8ZM104.8 104.8H69.68V69.68H104.8V104.8Z" fill="white"/></svg><span>Windows</span></li>
-                           <li class="flex items-center gap-3"><svg class="w-6 h-6" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M106.88 128C106.88 128 128 105.6 128 76C128 46.4 104.96 36.48 88.64 36.48C69.12 36.48 53.12 48.96 44.8 48.96C35.84 48.96 24.32 36.48 8.96 36.48C-12.8 36.48 3.84 80 26.88 104C38.4 116 51.2 128.64 68.48 127.36C84.48 126.08 89.6 115.2 106.88 115.2C124.16 115.2 118.08 128 106.88 128ZM88.32 32C92.8 21.12 104.32 14.08 112.64 11.2C109.44 2.56 94.72 0 80.64 0C68.48 0 56.96 4.48 48.64 4.48C40.32 4.48 29.44 0 16.64 0C-1.6 0.64 0.32 23.04 12.8 33.28C20.48 39.04 30.72 41.6 38.4 41.6C46.72 41.6 59.52 32 72.32 32C78.08 32 83.2 32 88.32 32Z" fill="white"/></svg><span>macOS</span></li>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">Operating Systems</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                           <li>Kali Linux</li>
+                           <li>Ubuntu / CentOS</li>
+                           <li>Windows Server</li>
+                           <li>macOS</li>
                         </ul>
                     </div>
                 </div>
-                 <div class="text-center mt-16">
-                    <h3 class="text-2xl font-bold text-white mb-4">Certifications & Achievements</h3>
-                    <div class="flex justify-center items-center flex-wrap gap-4">
-                        <a href="https://www.credly.com/users/naveen-bose.16895297" target="_blank" rel="noopener noreferrer" class="cert-badge bg-gray-800 text-white">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Cisco_logo.svg/64px-Cisco_logo.svg.png" alt="Cisco Logo" class="h-6">
-                            <span class="font-bold">CCNA</span>
+                 <div class="text-center mt-16 content-container p-8">
+                    <h3 class="text-3xl font-bold text-white mb-6">Certifications & Achievements</h3>
+                    <div class="flex justify-center items-center flex-wrap gap-6">
+                        <a href="https://www.credly.com/users/naveen-bose.16895297" target="_blank" rel="noopener noreferrer" class="cert-badge bg-transparent text-white p-4 flex items-center gap-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Cisco_logo.svg/64px-Cisco_logo.svg.png" alt="Cisco Logo" class="h-8 invert brightness-0">
+                            <span class="font-bold text-xl">CCNA</span>
                         </a>
-                        <div class="cert-badge bg-gray-800 text-white">
-                            <svg class="h-8 w-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#D9232A"/><path d="M50 89C71.5228 89 89 71.5228 89 50C89 28.4772 71.5228 11 50 11C28.4772 11 11 28.4772 11 50C11 71.5228 28.4772 89 50 89Z" fill="white"/><path d="M67.33 34.5H32.67C32.02 34.5 31.5 35.02 31.5 35.67V64.33C31.5 64.98 32.02 65.5 32.67 65.5H67.33C67.98 65.5 68.5 64.98 68.5 64.33V35.67C68.5 35.02 67.98 34.5 67.33 34.5ZM50 59.56C44.72 59.56 40.44 55.28 40.44 50C40.44 44.72 44.72 40.44 50 40.44C55.28 40.44 59.56 44.72 59.56 50C59.56 55.28 55.28 59.56 50 59.56Z" fill="#D9232A"/></svg>
-                            <span>CEH (In Progress)</span>
+                        <div class="cert-badge bg-transparent text-white p-4 flex items-center gap-3">
+                            <svg class="h-10 w-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" stroke="#00ff41" stroke-width="4"/><path d="M67.33 34.5H32.67C32.02 34.5 31.5 35.02 31.5 35.67V64.33C31.5 64.98 32.02 65.5 32.67 65.5H67.33C67.98 65.5 68.5 64.98 68.5 64.33V35.67C68.5 35.02 67.98 34.5 67.33 34.5ZM50 59.56C44.72 59.56 40.44 55.28 40.44 50C40.44 44.72 44.72 40.44 50 40.44C55.28 40.44 59.56 44.72 59.56 50C59.56 55.28 55.28 59.56 50 59.56Z" fill="#00ff41"/></svg>
+                            <span class="text-xl">CEH (In Progress)</span>
                         </div>
-                        <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="tryhackme-badge-container inline-block">
-                            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1290193" style="border:none; width: 100%; height: 100%; vertical-align: middle;"></iframe>
+                        <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="tryhackme-badge-container inline-block w-[350px] h-[90px] overflow-hidden">
+                            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1290193" style="border:none; width: 100%; height: 100%; vertical-align: middle; filter: invert(1) hue-rotate(100deg) brightness(1.2);"></iframe>
                         </a>
                     </div>
                 </div>
@@ -363,86 +326,81 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24 bg-black">
+        <section id="projects" class="py-24">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-title inline-block typewriter" data-text="Featured Projects"></h2>
+                <h2 class="section-title inline-block typewriter" data-text="Featured_Projects"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
-
-                    <div class="project-card">
+                    <!-- Project Cards -->
+                    <div class="card flex flex-col">
                         <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">AV Evasion Malware (Research)</h3>
-                            <p class="text-gray-400 mb-4">Developing a proof-of-concept malware designed to evade detection by common antivirus solutions and Windows Defender for research and educational purposes.</p>
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ AV Evasion Malware ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">PoC malware to evade detection by common AV solutions for research purposes.</p>
                         </div>
                         <div class="p-6 pt-0">
                             <div class="flex flex-wrap gap-2 mb-4">
-                               <span class="tag">Python</span><span class="tag">C</span><span class="tag">Windows API</span><span class="tag">Reverse Engineering</span>
+                                <span class="tag">Python</span><span class="tag">C</span><span class="tag">WinAPI</span><span class="tag">RevEng</span>
                             </div>
-                            <a href="https://github.com/N4V33NB0S3/Keylogger" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
+                            <a href="https://github.com/N4V33NB0S3/Keylogger" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
                         </div>
                     </div>
-
-                    <div class="project-card">
+                    <div class="card flex flex-col">
                         <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">FOMA - DoS Malware (Research)</h3>
-                            <p class="text-gray-400 mb-4">"Folder Malware" (FOMA) is a malware that causes a Denial of Service by rapidly creating nested folders, demonstrating a simple yet effective resource exhaustion attack for educational purpose.</p>
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ FOMA - DoS Malware ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">"Folder Malware" (FOMA) causes a DoS via rapid folder creation, a resource exhaustion attack PoC.</p>
                         </div>
                          <div class="p-6 pt-0">
                             <div class="flex flex-wrap gap-2 mb-4">
                                <span class="tag">Python</span><span class="tag">DoS</span><span class="tag">Malware</span>
                             </div>
-                            <a href="https://github.com/N4V33NB0S3/Foma" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
+                            <a href="https://github.com/N4V33NB0S3/Foma" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
                         </div>
                     </div>
-
-                    <div class="project-card">
+                    <div class="card flex flex-col">
                         <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Network Monitoring Tool</h3>
-                            <p class="text-gray-400 mb-4">A tool for monitoring network status, device uptime, and traffic .</p>
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ Network Monitor ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">A custom tool for monitoring network status, device uptime, and traffic analysis using SNMP.</p>
                         </div>
                          <div class="p-6 pt-0">
                             <div class="flex flex-wrap gap-2 mb-4">
                                <span class="tag">Python</span><span class="tag">SNMP</span>
                             </div>
-                            <a href="https://github.com/N4V33NB0S3/network_monitor" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
+                            <a href="https://github.com/N4V33NB0S3/network_monitor" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
                         </div>
                     </div>
-
-                     <div class="project-card">
+                    <div class="card flex flex-col">
                         <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Raspberry Pi Meshnet Media Server</h3>
-                            <p class="text-gray-400 mb-4">Created a decentralized media server using Raspberry Pis on a mesh network, ensuring resilient media access without a central point of failure.</p>
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ Pi Meshnet Server ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">Decentralized media server using Raspberry Pis on a mesh network for resilient media access.</p>
                         </div>
                          <div class="p-6 pt-0">
                             <div class="flex flex-wrap gap-2 mb-4">
-                               <span class="tag">Raspberry Pi</span><span class="tag">Linux</span><span class="tag">Mesh Networking</span>
+                               <span class="tag">RaspberryPi</span><span class="tag">Linux</span><span class="tag">Mesh</span>
                             </div>
-                            <a href="https://github.com/N4V33NB0S3/Mediaserver-over-meshnet" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
+                            <a href="https://github.com/N4V33NB0S3/Mediaserver-over-meshnet" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
                         </div>
                     </div>
-
-                    <div class="project-card">
-                       <div class="p-6 flex-grow">
-                           <h3 class="text-xl font-bold mb-2 text-white">VPN Switcher Tools</h3>
-                           <p class="text-gray-400 mb-4">Developed the VPN switcher which will randomly change the countries for random intervals.</p>
-                       </div>
-                        <div class="p-6 pt-0">
-                           <div class="flex flex-wrap gap-2 mb-4">
-                              <span class="tag">Python</span><span class="tag">Linux</span><span class="tag">NordVPN</span>
-                           </div>
-                           <a href="https://github.com/N4V33NB0S3/VPN_switcher" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
-                       </div>
-                   </div>
-
-                     <div class="project-card">
+                    <div class="card flex flex-col">
                         <div class="p-6 flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Bulk Logoff CLI tool</h3>
-                            <p class="text-gray-400 mb-4">Developed various CLI tools to automate repetitive tasks, including logging off multiple remote sessions and these are built to automate parts of my NOC responsibilities.</p>
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ VPN Switcher ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">A CLI tool that automates switching NordVPN servers to random countries at random intervals.</p>
+                        </div>
+                         <div class="p-6 pt-0">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tag">Python</span><span class="tag">Linux</span><span class="tag">NordVPN</span>
+                            </div>
+                            <a href="https://github.com/N4V33NB0S3/VPN_switcher" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-2xl font-bold mb-2 text-white">[ Bulk Logoff Tool ]</h3>
+                            <p class="text-gray-400 mb-4 text-lg">CLI tool to automate logging off multiple remote sessions, streamlining NOC responsibilities.</p>
                         </div>
                          <div class="p-6 pt-0">
                             <div class="flex flex-wrap gap-2 mb-4">
                                <span class="tag">Python</span><span class="tag">Automation</span><span class="tag">CLI</span>
                             </div>
-                            <a href="https://github.com/N4V33NB0S3/Bulk_Logoff" target="_blank" rel="noopener noreferrer" class="project-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>View on GitHub</span></a>
+                            <a href="https://github.com/N4V33NB0S3/Bulk_Logoff" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
                         </div>
                     </div>
                 </div>
@@ -450,10 +408,10 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-black">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="section-title inline-block typewriter" data-text="Get In Touch"></h2>
-                <p class="text-lg text-gray-400 my-8 max-w-xl mx-auto">
+        <section id="contact" class="py-24">
+            <div class="container mx-auto px-6 text-center content-container p-8">
+                <h2 class="section-title inline-block typewriter" data-text="Get_In_Touch"></h2>
+                <p class="text-lg text-gray-300 my-8 max-w-xl mx-auto leading-relaxed">
                     I'm actively seeking opportunities in cybersecurity. Whether you have a question, a project, or just want to connect, my inbox is always open.
                 </p>
                 <div class="flex justify-center space-x-8 mt-8">
@@ -472,26 +430,67 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-center py-6">
-        <p class="text-gray-600 font-mono">Designed & Built by Naveen Bose</p>
+    <footer class="text-center py-6">
+        <p class="text-gray-600">>> Designed & Built by Naveen Bose <<</p>
     </footer>
 
     <!-- Custom JS -->
     <script>
-        window.addEventListener('load', function() {
-            // --- Header Scroll Effect ---
-            const header = document.getElementById('header');
-            if (header) {
-                window.addEventListener('scroll', () => {
-                    header.classList.toggle('bg-black', window.scrollY > 50);
-                    header.classList.toggle('bg-opacity-80', window.scrollY > 50);
-                    header.classList.toggle('backdrop-blur-sm', window.scrollY > 50);
-                });
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Matrix Rain Effect ---
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            const characters = katakana + latin + nums;
+            const alphabet = characters.split('');
+
+            const fontSize = 16;
+            let columns = canvas.width / fontSize;
+            let rainDrops = [];
+
+            const initializeRain = () => {
+                columns = canvas.width / fontSize;
+                rainDrops = [];
+                for (let x = 0; x < columns; x++) {
+                    rainDrops[x] = 1;
+                }
+            };
+            initializeRain();
+
+            const drawMatrix = () => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00ff41';
+                ctx.font = fontSize + 'px VT323';
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            };
+
+            const matrixInterval = setInterval(drawMatrix, 33);
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initializeRain();
+            });
 
             // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -513,75 +512,36 @@
                 logo.appendChild(cursorSpan);
             }
 
-            // --- Typewriter Effect (Looping) ---
-            const typeWriterLoop = (element) => {
-                const text = element.dataset.text;
-                const typingSpeed = 50;
-                const erasingSpeed = 30;
-                const loopDelay = 3000;
-
-                let textIndex = 0;
-                let isErasing = false;
-
-                function loop() {
-                    const currentText = text.substring(0, textIndex);
-                    element.innerHTML = currentText;
-                    element.insertAdjacentHTML('beforeend', '<span class="cursor">&nbsp;</span>');
-
-                    if (!isErasing) {
-                        if (textIndex < text.length) {
-                            textIndex++;
-                            setTimeout(loop, typingSpeed);
-                        } else {
-                            isErasing = true;
-                            setTimeout(loop, loopDelay);
-                        }
-                    } else {
-                        if (textIndex > 0) {
-                            textIndex--;
-                            setTimeout(loop, erasingSpeed);
-                        } else {
-                            isErasing = false;
-                            setTimeout(loop, loopDelay / 2);
-                        }
-                    }
-                }
-                loop();
-            };
-
-            // --- Typewriter Effect (Once) ---
-            const typeWriterOnce = (element) => {
+            // --- Typewriter Effect ---
+            const typeWriter = (element) => {
                 const text = element.dataset.text;
                 let textIndex = 0;
-                element.innerHTML = ''; // Clear content
+                element.innerHTML = ''; // Clear the element
 
                 function type() {
                     if (textIndex < text.length) {
-                        element.innerHTML += text.charAt(textIndex);
+                        element.innerHTML = text.substring(0, textIndex + 1) + '<span class="cursor"></span>';
                         textIndex++;
-                        setTimeout(type, 50);
+                        setTimeout(type, 70);
+                    } else {
+                        element.innerHTML = text + '<span class="cursor"></span>';
                     }
                 }
                 type();
             };
-
 
             // --- Intersection Observer for Animations ---
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
-                        if (el.classList.contains('typewriter-once')) {
-                           typeWriterOnce(el);
-                        } else {
-                           typeWriterLoop(el);
-                        }
+                        typeWriter(el);
                         observer.unobserve(el);
                     }
                 });
             }, { threshold: 0.2 });
 
-            document.querySelectorAll('.typewriter, .typewriter-once').forEach(el => {
+            document.querySelectorAll('.typewriter').forEach(el => {
                 observer.observe(el);
             });
         });
