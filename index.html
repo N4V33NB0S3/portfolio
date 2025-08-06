@@ -144,11 +144,14 @@
             border: 1px solid rgba(0, 255, 65, 0.3);
             font-size: 0.9rem;
         }
-        .cert-badge, .tryhackme-badge-container {
+        .cert-badge {
             border: 1px solid #00ff41;
             transition: all 0.3s ease;
+            /* Making sure the container itself is rounded */
+            border-radius: 0.5rem;
+            overflow: hidden; /* This will ensure the child (img/iframe) respects the parent's border-radius */
         }
-        .cert-badge:hover, .tryhackme-badge-container:hover {
+        .cert-badge:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
         }
@@ -352,9 +355,10 @@
                             <svg class="h-10 w-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" stroke="#00ff41" stroke-width="4"/><path d="M67.33 34.5H32.67C32.02 34.5 31.5 35.02 31.5 35.67V64.33C31.5 64.98 32.02 65.5 32.67 65.5H67.33C67.98 65.5 68.5 64.98 68.5 64.33V35.67C68.5 35.02 67.98 34.5 67.33 34.5ZM50 59.56C44.72 59.56 40.44 55.28 40.44 50C40.44 44.72 44.72 40.44 50 40.44C55.28 40.44 59.56 44.72 59.56 50C59.56 55.28 55.28 59.56 50 59.56Z" fill="#00ff41"/></svg>
                             <span class="text-xl">Offensive Security Certified Professional(In Progress)</span>
                         </div>
-                        <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="tryhackme-badge-container inline-block w-[350px] h-[90px] overflow-hidden">
-                            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1290193" style="border:none; width: 100%; height: 100%; vertical-align: middle; filter: invert(1) hue-rotate(100deg) brightness(1.2);"></iframe>
-                        </a>
+                        <!-- === BADGE CODE UPDATED HERE === -->
+                        <div class="cert-badge" style="width: 350px; height: 90px;">
+                           <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1290193" style="border:none; width: 100%; height: 100%; filter: invert(1) hue-rotate(100deg) brightness(1.2);"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
