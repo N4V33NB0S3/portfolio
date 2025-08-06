@@ -193,6 +193,22 @@
                 opacity: 1;
             }
         }
+
+        /* Responsive heading font sizes for mobile */
+        @media (max-width: 640px) {
+            h1.text-6xl {
+                font-size: 3rem; /* Equivalent to text-5xl */
+            }
+            h2.text-4xl {
+                font-size: 1.875rem; /* Equivalent to text-3xl */
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .card h3 {
+                font-size: 1.25rem; /* Equivalent to text-xl */
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -250,7 +266,7 @@
         <!-- About Section -->
         <section id="about" class="py-24">
              <div class="container mx-auto px-6 content-container p-8">
-                <h2 class="section-title typewriter" data-text="About_Me"></h2>
+                <h2 class="section-title typewriter" data-text="About_Me" data-loop="true"></h2>
                 <div class="flex flex-col md:flex-row items-start gap-12 mt-12">
                     <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed">
                         <p class="mb-4">
@@ -276,7 +292,7 @@
         <!-- Skills Section -->
         <section id="skills" class="py-24">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-title inline-block typewriter" data-text="Technical_Arsenal"></h2>
+                <h2 class="section-title inline-block typewriter" data-text="Technical_Arsenal" data-loop="true"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold text-white mb-4">Networking & Security</h3>
@@ -329,7 +345,7 @@
         <!-- Projects Section -->
         <section id="projects" class="py-24">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="section-title inline-block typewriter" data-text="Featured_Projects"></h2>
+                <h2 class="section-title inline-block typewriter" data-text="Featured_Projects" data-loop="true"></h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
                     <!-- Project Cards -->
                     <div class="card flex flex-col">
@@ -411,7 +427,7 @@
         <!-- Contact Section -->
         <section id="contact" class="py-24">
             <div class="container mx-auto px-6 text-center content-container p-8">
-                <h2 class="section-title inline-block typewriter" data-text="Get_In_Touch"></h2>
+                <h2 class="section-title inline-block typewriter" data-text="Get_In_Touch" data-loop="true"></h2>
                 <p class="text-lg text-gray-300 my-8 max-w-xl mx-auto leading-relaxed">
                     I'm actively seeking opportunities in cybersecurity. Whether you have a question, a project, or just want to connect, my inbox is always open.
                 </p>
@@ -514,21 +530,44 @@
             }
 
             // --- Typewriter Effect ---
-            const typeWriter = (element) => {
+            const typeWriter = async (element, loop = false) => {
                 const text = element.dataset.text;
-                let textIndex = 0;
-                element.innerHTML = ''; // Clear the element
+                const typeSpeed = 70;
+                const eraseSpeed = 50;
+                const loopDelay = 3000; // 3-second delay
 
-                function type() {
-                    if (textIndex < text.length) {
-                        element.innerHTML = text.substring(0, textIndex + 1) + '<span class="cursor"></span>';
-                        textIndex++;
-                        setTimeout(type, 70);
-                    } else {
-                        element.innerHTML = text + '<span class="cursor"></span>';
+                // Helper function to create a delay
+                const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+                // Function to type out the text
+                const type = async () => {
+                    for (let i = 0; i <= text.length; i++) {
+                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                        await sleep(typeSpeed);
                     }
+                };
+
+                // Function to erase the text
+                const erase = async () => {
+                    for (let i = text.length; i >= 0; i--) {
+                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                        await sleep(eraseSpeed);
+                    }
+                };
+
+                if (loop) {
+                    // Infinite loop for looping elements
+                    while (true) {
+                        await type();
+                        await sleep(loopDelay);
+                        await erase();
+                        await sleep(500); // Brief pause before restarting
+                    }
+                } else {
+                    // Type only once for non-looping elements
+                    await type();
+                    element.innerHTML = text + '<span class="cursor"></span>'; // Keep final text
                 }
-                type();
             };
 
             // --- Intersection Observer for Animations ---
@@ -536,12 +575,15 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
-                        typeWriter(el);
+                        const shouldLoop = el.dataset.loop === 'true';
+                        typeWriter(el, shouldLoop);
+                        // Unobserve the element so the animation doesn't restart on scroll
                         observer.unobserve(el);
                     }
                 });
             }, { threshold: 0.2 });
 
+            // Observe all elements with the 'typewriter' class
             document.querySelectorAll('.typewriter').forEach(el => {
                 observer.observe(el);
             });
