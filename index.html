@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen Bose - Netrunner</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles - Cyberpunk Theme */
+        :root {
+            --primary-color: #FF00FF; /* Magenta */
+            --secondary-color: #00FFFF; /* Cyan */
+            --background-color: #0D0221;
+            --text-color: #F0F0F0;
+            --glow-color: rgba(255, 0, 255, 0.6);
+            --secondary-glow-color: rgba(0, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Glitchy Background */
+        #glitch-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Fonts */
+        h1, h2, h3, #logo, .btn, .section-title, .typewriter {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+        .nav-link, .tag, footer p, .project-link, .cert-badge span {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* Header & Navigation */
+        #header {
+            background: rgba(13, 2, 33, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--primary-color);
+        }
+        .nav-link {
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 8px var(--secondary-glow-color);
+            font-size: 1.25rem;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--secondary-glow-color);
+        }
+        #logo-cursor {
+            animation: blink 1s infinite;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+            display: inline-block;
+            width: 12px;
+            height: 1.5em;
+            vertical-align: bottom;
+            margin-left: 4px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        .section-title::before, .section-title::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--primary-color);
+            border-style: solid;
+        }
+        .section-title::before {
+            top: 0;
+            left: 0;
+            border-width: 2px 0 0 2px;
+        }
+        .section-title::after {
+            bottom: 0;
+            right: 0;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-color);
+            background: transparent;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+        }
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            box-shadow: 0 0 20px var(--glow-color);
+            transform: translateY(-2px);
+        }
+
+        /* Cards & Containers */
+        .content-container {
+            background: rgba(13, 2, 33, 0.5);
+            border: 1px solid var(--primary-color);
+            padding: 2rem;
+        }
+        .card {
+            background-color: rgba(13, 2, 33, 0.7);
+            border: 1px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px -5px var(--secondary-glow-color);
+        }
+        .tag {
+            background-color: rgba(0, 255, 255, 0.1);
+            color: var(--secondary-color);
+            padding: 0.25rem 0.75rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0% 100%);
+        }
+        .cert-badge {
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .cert-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        /* Typewriter Animation */
+        .typewriter .cursor {
+            display: inline-block;
+            background-color: var(--primary-color);
+            width: 12px;
+            height: 1.2em;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+        .whoami {
+            color: var(--secondary-color);
+            text-shadow: 0 0 8px var(--secondary-glow-color);
+        }
+        .whoami::before {
+            content: 'user@localhost:~$ ';
+            color: var(--secondary-color);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Responsive heading font sizes */
+        @media (max-width: 640px) {
+            h1.text-5xl { font-size: 2.25rem; }
+            h2.text-2xl { font-size: 1.25rem; }
+            .section-title { font-size: 2rem; }
+            .card h3 { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Dynamic Background -->
+    <canvas id="glitch-canvas"></canvas>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-bold text-white" id="logo">NB_</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link">init_about</a>
+                <a href="#skills" class="nav-link">load_skills</a>
+                <a href="#projects" class="nav-link">exec_projects</a>
+                <a href="#contact" class="nav-link">ping_contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90 backdrop-blur-sm">
+            <a href="#about" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">init_about</a>
+            <a href="#skills" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">load_skills</a>
+            <a href="#projects" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">exec_projects</a>
+            <a href="#contact" class="block py-3 px-4 text-lg text-white hover:bg-gray-900">ping_contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center">
+            <div class="container mx-auto px-6 z-10">
+                <div class="max-w-4xl">
+                    <p class="text-xl mb-4 typewriter whoami" data-text="whoami"></p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 typewriter" data-text="Naveen Bose"></h1>
+                    <h2 class="text-2xl md:text-4xl font-bold text-gray-300 mb-6 typewriter" data-text="Netrunner & Security Architect"></h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mb-8 animate-fade-in leading-relaxed">
+                        A NOC Engineer forging a path through the digital frontier. I build, secure, and dismantle networks, specializing in offensive security to protect the systems of tomorrow.
+                    </p>
+                    <div class="flex flex-wrap gap-4 animate-fade-in">
+                        <a href="#projects" class="btn">
+                            Access Projects
+                        </a>
+                        <a href="Naveen_Bose_Resume.pdf" download="Naveen_Bose_Resume.pdf" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
+                            <span>Download Intel</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24">
+             <div class="container mx-auto px-6 content-container">
+                <h2 class="section-title typewriter" data-text="[ User_Profile ]" data-loop="true"></h2>
+                <div class="flex flex-col md:flex-row items-center gap-12 mt-12">
+                    <div class="md:w-1/3 w-full">
+                        <img src="naveen.jpeg"
+                             alt="Naveen Bose"
+                             class="w-full h-auto object-cover border-2 border-secondary-color"
+                             style="clip-path: polygon(0 15%, 15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%);"
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/0D0221/FFFFFF?text=Image+Not+Found';">
+                    </div>
+                    <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed">
+                        <p class="mb-4">
+                            My journey started in Mechanical Engineering, but the digital hum of the net called to me. Now, as a Network Operations Centre Engineer, I'm on the front lines, managing and fortifying critical network infrastructure.
+                        </p>
+                        <p class="mb-4">
+                            I thrive in the shadows of offensive security. Ranking in the <strong class="text-primary-color">top 1% on TryHackMe</strong> and diving deep into CTFs has honed my skills in penetration testing, turning digital locks into open doors.
+                        </p>
+                        <p>
+                            Armed with a <strong class="text-primary-color">CCNA</strong> and pursuing <strong class="text-primary-color">OSCP</strong> & an <strong class="text-primary-color">MCA in Cybersecurity</strong>, I'm constantly upgrading my wetware to stay ahead of emerging threats.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24">
+            <div class="container mx-auto px-6 content-container">
+                <div class="text-center">
+                    <h2 class="section-title inline-block typewriter" data-text="[ Technical_Arsenal ]" data-loop="true"></h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 text-left">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">// Offensive_Skills</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                            <li>Penetration Testing</li>
+                            <li>Web App Exploitation</li>
+                            <li>Privilege Escalation</li>
+                            <li>Malware Development</li>
+                            <li>Reverse Engineering</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">// Defensive_Skills</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                            <li>Network Security Monitoring</li>
+                            <li>Firewall & IDS/IPS Config</li>
+                            <li>Incident Response</li>
+                            <li>Threat Intelligence</li>
+                            <li>Vulnerability Management</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">// Network_Infrastructure</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                            <li>Router/Switch Config: Cisco, Juniper, Huawei, Nokia etc.</li>
+                            <li>Firewalls: Cisco ASA, Fortinet</li>
+                            <li>Protocols: BGP, OSPF,ISIS, MPLS</li>
+                            <li>Secure Network Architecture</li>
+                            <li>VPNs: IPSEC, SSL, WireGuard</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">// Tools_&_Tech</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                            <li>Metasploit, Burp Suite, Nmap</li>
+                            <li>Nessus, OpenVAS</li>
+                            <li>Grafana, Prometheus</li>
+                            <li>Wireshark, Snort, Zeek</li>
+                            <li>Ghidra, IDA Pro</li>
+                            <li>Python, C, Java, JavaScript</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="text-center mt-16">
+                    <h3 class="text-3xl font-bold text-white mb-6">[ Certifications ]</h3>
+                    <div class="flex justify-center items-center flex-wrap gap-6">
+                        <a href="https://www.credly.com/users/naveen-bose.16895297" target="_blank" rel="noopener noreferrer" class="cert-badge bg-transparent text-white p-4 flex items-center gap-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Cisco_logo.svg/64px-Cisco_logo.svg.png" alt="Cisco Logo" class="h-8 invert brightness-0">
+                            <span class="font-bold text-xl">CCNA</span>
+                        </a>
+                        <div class="cert-badge bg-transparent text-white p-4 flex items-center gap-3">
+                            <svg class="h-10 w-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" stroke="var(--primary-color)" stroke-width="4"/><path d="M67.33 34.5H32.67C32.02 34.5 31.5 35.02 31.5 35.67V64.33C31.5 64.98 32.02 65.5 32.67 65.5H67.33C67.98 65.5 68.5 64.98 68.5 64.33V35.67C68.5 35.02 67.98 34.5 67.33 34.5ZM50 59.56C44.72 59.56 40.44 55.28 40.44 50C40.44 44.72 44.72 40.44 50 40.44C55.28 40.44 59.56 44.72 59.56 50C59.56 55.28 55.28 59.56 50 59.56Z" fill="var(--primary-color)"/></svg>
+                            <span class="text-xl">OSCP (In Progress)</span>
+                        </div>
+                        <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                            <span>TryHackMe Profile</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <div class="container mx-auto px-6 content-container">
+                <div class="text-center">
+                    <h2 class="section-title inline-block typewriter" data-text="[ Featured_Projects ]" data-loop="true"></h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ AV Evasion Malware ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">PoC malware to evade detection by common AV solutions for research purposes.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Python</span><span class="tag">C</span><span class="tag">WinAPI</span><span class="tag">RevEng</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/Keylogger" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ FOMA - DoS Malware ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">"Folder Malware" (FOMA) causes a DoS via rapid folder creation, a resource exhaustion attack PoC.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                           <span class="tag">Python</span><span class="tag">DoS</span><span class="tag">Malware</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/Foma" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ Network Monitor ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">A custom tool for monitoring network status, device uptime, and traffic analysis using SNMP.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                           <span class="tag">Python</span><span class="tag">SNMP</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/network_monitor" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ Pi Meshnet Server ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">Decentralized media server using Raspberry Pis on a mesh network for resilient media access.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                           <span class="tag">RaspberryPi</span><span class="tag">Linux</span><span class="tag">Mesh</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/Mediaserver-over-meshnet" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ VPN Switcher ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">A CLI tool that automates switching NordVPN servers to random countries at random intervals.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                           <span class="tag">Python</span><span class="tag">Linux</span><span class="tag">NordVPN</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/VPN_switcher" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ Bulk Logoff Tool ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">CLI tool to automate logging off multiple remote sessions, streamlining NOC responsibilities.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                           <span class="tag">Python</span><span class="tag">Automation</span><span class="tag">CLI</span>
+                        </div>
+                        <a href="https://github.com/N4V33NB0S3/Bulk_Logoff" target="_blank" rel="noopener noreferrer" class="project-link"> &gt;&gt; Access_Repo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+            <div class="container mx-auto px-6 text-center content-container">
+                <h2 class="section-title inline-block typewriter" data-text="[ Get_In_Touch ]" data-loop="true"></h2>
+                <p class="text-lg text-gray-300 my-8 max-w-xl mx-auto leading-relaxed">
+                    I'm actively seeking new opportunities and collaborations in the cybersecurity space. If you have a project, a question, or just want to connect, my line is always open.
+                </p>
+                <div class="flex justify-center space-x-8 mt-8">
+                    <a href="mailto:naveenbose@proton.me" aria-label="Email" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+                    <a href="https://github.com/N4V33NB0S3" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+                    <a href="https://www.linkedin.com/in/naveen-bose-612134256" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+                    <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" aria-label="TryHackMe" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6">
+        <p class="text-gray-600">>> STATUS: CONNECTION TERMINATED <<</p>
+    </footer>
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Glitchy Background Effect ---
+            const canvas = document.getElementById('glitch-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let lines = [];
+            const lineCount = 50;
+
+            class Line {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.length = Math.random() * 200 + 50;
+                    this.speed = Math.random() * 2 + 1;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 0, 255, ' + this.opacity + ')' : 'rgba(0, 255, 255, ' + this.opacity + ')';
+                }
+                update() {
+                    this.y += this.speed;
+                    if (this.y > canvas.height) {
+                        this.y = 0 - this.length;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                draw() {
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y + this.length);
+                    ctx.stroke();
+                }
+            }
+
+            function initLines() {
+                for (let i = 0; i < lineCount; i++) {
+                    lines.push(new Line());
+                }
+            }
+            initLines();
+
+            function animateLines() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < lines.length; i++) {
+                    lines[i].update();
+                    lines[i].draw();
+                }
+                requestAnimationFrame(animateLines);
+            }
+            animateLines();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                lines = [];
+                initLines();
+            });
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                document.querySelectorAll('#mobile-menu a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                });
+            }
+
+            // --- Blinking Cursor for Logo ---
+            const logo = document.getElementById('logo');
+            if (logo) {
+                const cursorSpan = document.createElement('span');
+                cursorSpan.id = 'logo-cursor';
+                logo.appendChild(cursorSpan);
+            }
+
+            // --- Typewriter Effect ---
+            const typeWriter = async (element, loop = false) => {
+                const text = element.dataset.text;
+                const typeSpeed = 100;
+                const eraseSpeed = 50;
+                const loopDelay = 3000;
+
+                const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+                const type = async () => {
+                    for (let i = 0; i <= text.length; i++) {
+                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                        await sleep(typeSpeed);
+                    }
+                };
+
+                const erase = async () => {
+                    for (let i = text.length; i >= 0; i--) {
+                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                        await sleep(eraseSpeed);
+                    }
+                };
+
+                if (loop) {
+                    while (true) {
+                        await type();
+                        await sleep(loopDelay);
+                        await erase();
+                        await sleep(500);
+                    }
+                } else {
+                    await type();
+                    element.innerHTML = text + '<span class="cursor"></span>';
+                }
+            };
+
+            // --- Intersection Observer for Animations ---
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const shouldLoop = el.dataset.loop === 'true';
+                        typeWriter(el, shouldLoop);
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.typewriter').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
