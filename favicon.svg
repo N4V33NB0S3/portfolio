@@ -1,0 +1,20 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&amp;display=swap');
+    </style>
+    <filter id="neon-glow-magenta">
+      <feFlood flood-color="#FF00FF" result="glowColor"></feFlood>
+      <feComposite in="glowColor" in2="SourceAlpha" operator="in" result="softGlow_pre"></feComposite>
+      <feGaussianBlur in="softGlow_pre" stdDeviation="4" result="softGlow"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="softGlow"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#0D0221"></rect>
+  <text x="50%" y="65%" font-family="'Orbitron', sans-serif" font-size="64" fill="#FF00FF" text-anchor="middle" filter="url(#neon-glow-magenta)">
+    NB
+  </text>
+</svg>
