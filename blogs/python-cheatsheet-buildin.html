@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Cheat Sheet: A Netrunner's Guide</title>
+    <title>Python Cheat Sheet</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&family=Fira+Code&display=swap');
 
         :root {
             --primary-color: #FF00FF; /* Magenta */
@@ -21,10 +21,10 @@
             color: var(--text-color);
             background-color: var(--background-color);
             padding: 1rem;
-            word-wrap: break-word; /* Ensure long words don't overflow */
+            word-wrap: break-word;
         }
         .container {
-            max-width: 800px;
+            max-width: 100%; /* Full width */
             margin: auto;
             background-color: rgba(13, 2, 33, 0.8);
             padding: 1.5rem;
@@ -39,21 +39,11 @@
             text-shadow: 0 0 8px var(--glow-color);
             text-transform: uppercase;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            table-layout: fixed; /* Helps with word wrapping */
-        }
-        th, td {
-            padding: 8px; /* Reduced padding for mobile */
-            border: 1px solid #333;
-            text-align: left;
-            word-wrap: break-word; /* Main fix for wrapping */
-        }
-        th {
-            background-color: #2a0a5e;
-            color: var(--primary-color);
+        h3 {
+            font-family: 'Fira Code', monospace; /* Coding font for subheadings */
+            color: var(--secondary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
         }
         code {
             background-color: #1a1a1a;
@@ -61,18 +51,26 @@
             padding: 3px 6px;
             border-radius: 4px;
             border: 1px solid #333;
-            word-break: break-all; /* Force breaks for long code snippets */
+            word-break: break-all;
         }
         .human-touch {
             color: #aaa;
             font-style: italic;
+            margin-bottom: 2em;
+        }
+        .entry {
+            margin-bottom: 1.5em;
+        }
+
+        /* On very large screens, add a bit of max-width for readability */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1200px;
+            }
         }
 
         /* Larger screens */
         @media (min-width: 640px) {
-            th, td {
-                padding: 12px;
-            }
             .container {
                 padding: 2rem;
             }
@@ -81,55 +79,96 @@
 </head>
 <body>
     <div class="container">
-        <h1>Python Cheat Sheet: A Netrunner's Guide</h1>
+        <h1>Python Cheat Sheet</h1>
         <p class="human-touch">Here's a quick reference for some of the most common tools in your Python arsenal. Think of it as your personal cyberdeck quick-menu.</p>
 
         <h2>Part 1: Core System Functions</h2>
         <p class="human-touch">These are your basic commands, the bread and butter of any script.</p>
-        <table>
-            <tr><th>Function</th><th>What It Does</th><th>Example</th></tr>
-            <tr><td><code>print(value)</code></td><td>The classic way to show something on screen. Essential for seeing what your code is doing.</td><td><code>print("Jack in!")</code></td></tr>
-            <tr><td><code>len(item)</code></td><td>Tells you the size of something, like characters in a string or items in a list.</td><td><code>len([1, 2, 3])</code> // returns 3</td></tr>
-            <tr><td><code>type(variable)</code></td><td>Identifies what kind of data you're dealing with (number, text, list, etc.).</td><td><code>type(10)</code> // returns &lt;class 'int'&gt;</td></tr>
-            <tr><td><code>int(value)</code></td><td>Forces a value to become a whole number. Good for converting text digits to actual numbers.</td><td><code>int("5")</code> // returns 5</td></tr>
-            <tr><td><code>str(value)</code></td><td>Turns any value into a string (text).</td><td><code>str(123)</code> // returns '123'</td></tr>
-            <tr><td><code>list(item)</code></td><td>Converts something iterable (like text) into a list of its parts.</td><td><code>list("abc")</code> // returns ['a', 'b', 'c']</td></tr>
-            <tr><td><code>sum(list)</code></td><td>Quickly adds up all the numbers in a list.</td><td><code>sum([10, 20, 5])</code> // returns 35</td></tr>
-            <tr><td><code>sorted(list)</code></td><td>Gives you a new, sorted version of a list without messing up the original.</td><td><code>sorted([3, 1, 2])</code> // returns [1, 2, 3]</td></tr>
-        </table>
+
+        <div class="entry">
+            <h3>print(value)</h3>
+            <p>The classic way to show something on screen. Essential for seeing what your code is doing. You can also use f-strings for dynamic output: <code>name = "Naveen"</code>, then <code>print(f"User: {name}")</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>input(prompt)</h3>
+            <p>Gets input from the user. It always returns the data as a string. Example: <code>user_ip = input("Enter target IP: ")</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>len(item)</h3>
+            <p>Tells you the size of something, like characters in a string or items in a list. <code>len([1, 2, 3])</code> will give you <code>3</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>type(variable)</h3>
+            <p>Identifies what kind of data you're dealing with. Running <code>type(10)</code> tells you it's an <code>&lt;class 'int'&gt;</code>.</p>
+        </div>
+         <div class="entry">
+            <h3>Type Casting: int(), str(), list()</h3>
+            <p>These are your data converters. <code>int("5")</code> turns text into a number, <code>str(123)</code> turns a number into text, and <code>list("abc")</code> turns a string into <code>['a', 'b', 'c']</code>.</p>
+        </div>
 
         <h2>Part 2: String Manipulation</h2>
         <p class="human-touch">Text is data. Here's how you slice it, dice it, and put it back together.</p>
-        <table>
-            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
-            <tr><td><code>.upper()</code></td><td>SHOUTS YOUR TEXT. Converts to uppercase.</td><td><code>'hello'.upper()</code> // returns 'HELLO'</td></tr>
-            <tr><td><code>.lower()</code></td><td>Whispers your text. Converts to lowercase.</td><td><code>'HELLO'.lower()</code> // returns 'hello'</td></tr>
-            <tr><td><code>.strip()</code></td><td>Cleans up messy text by removing whitespace from the ends.</td><td><code>'  hi  '.strip()</code> // returns 'hi'</td></tr>
-            <tr><td><code>.replace(old, new)</code></td><td>Finds a piece of text and swaps it with something else.</td><td><code>'a-b-c'.replace('-', ' ')</code> // returns 'a b c'</td></tr>
-            <tr><td><code>.split(separator)</code></td><td>Breaks a string into a list of smaller strings. Perfect for parsing data.</td><td><code>'192.168.1.1'.split('.')</code> // returns ['192', '168', '1', '1']</td></tr>
-            <tr><td><code>.join(list)</code></td><td>The opposite of split. Takes a list of strings and joins them into one.</td><td><code>'-'.join(['a', 'b'])</code> // returns 'a-b'</td></tr>
-        </table>
+
+        <div class="entry">
+            <h3>.upper() & .lower()</h3>
+            <p>Lets you change the case of your text. <code>'hello'.upper()</code> gives you <code>'HELLO'</code>, and <code>'HELLO'.lower()</code> brings it back to <code>'hello'</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.strip(), .lstrip(), .rstrip()</h3>
+            <p>Cleans up messy text by removing any extra whitespace. <code>.strip()</code> cleans both ends, <code>.lstrip()</code> cleans the left, and <code>.rstrip()</code> cleans the right.</p>
+        </div>
+        <div class="entry">
+            <h3>.replace(old, new)</h3>
+            <p>Finds a piece of text and swaps it with something else. For instance, <code>'a-b-c'.replace('-', ' ')</code> returns <code>'a b c'</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.split(separator)</h3>
+            <p>Breaks a string into a list of smaller strings. It's perfect for parsing data, like turning <code>'192.168.1.1'.split('.')</code> into <code>['192', '168', '1', '1']</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.join(list)</h3>
+            <p>The opposite of split. It takes a list of strings and joins them into one. <code>'-'.join(['a', 'b'])</code> will produce <code>'a-b'</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.find(substring)</h3>
+            <p>Returns the index (position) of a substring. If it's not found, it returns <code>-1</code>, which is useful for checks. <code>'abc'.find('b')</code> returns <code>1</code>.</p>
+        </div>
 
         <h2>Part 3: List Operations</h2>
         <p class="human-touch">Lists are your go-to for storing collections of items in order.</p>
-        <table>
-            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
-            <tr><td><code>.append(item)</code></td><td>Adds a single item to the very end of your list.</td><td><code>my_list.append(4)</code></td></tr>
-            <tr><td><code>.extend(list2)</code></td><td>Merges another list onto the end of your current one.</td><td><code>my_list.extend([5, 6])</code></td></tr>
-            <tr><td><code>.pop(index)</code></td><td>Removes and gives you an item from a specific position. If you don't say where, it takes the last one.</td><td><code>my_list.pop()</code></td></tr>
-            <tr><td><code>.remove(item)</code></td><td>Hunts down and removes the first item that matches what you're looking for.</td><td><code>my_list.remove(3)</code></td></tr>
-            <tr><td><code>.sort()</code></td><td>Sorts the list for real, modifying the original. No going back.</td><td><code>my_list.sort()</code></td></tr>
-        </table>
+
+        <div class="entry">
+            <h3>.append(item) & .extend(list2)</h3>
+            <p>Use <code>.append()</code> to add a single item to the end of a list. If you want to add all the items from another list, use <code>.extend()</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.pop(index) & .remove(item)</h3>
+            <p><code>.pop()</code> removes an item by its position (index) and gives it back to you. <code>.remove()</code> hunts down and removes the first item that matches a specific value.</p>
+        </div>
+        <div class="entry">
+            <h3>.sort()</h3>
+            <p>This will sort the list for real, modifying the original. You can sort in reverse with <code>my_list.sort(reverse=True)</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>List Slicing</h3>
+            <p>Lets you grab parts of a list. <code>my_list[1:4]</code> gets items from index 1 up to (but not including) index 4. <code>my_list[:3]</code> gets the first three, and <code>my_list[-1]</code> gets the last item.</p>
+        </div>
 
         <h2>Part 4: Dictionary Tactics</h2>
         <p class="human-touch">Dictionaries store data as key-value pairs, like a high-tech filing cabinet.</p>
-        <table>
-            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
-            <tr><td><code>.keys()</code></td><td>Gives you all the keys (the labels) from your dictionary.</td><td><code>my_dict.keys()</code></td></tr>
-            <tr><td><code>.values()</code></td><td>Gives you all the values (the data) from your dictionary.</td><td><code>my_dict.values()</code></td></tr>
-            <tr><td><code>.items()</code></td><td>Hands you key-value pairs together, perfect for looping through.</td><td><code>my_dict.items()</code></td></tr>
-            <tr><td><code>.get(key, default)</code></td><td>Safely gets a value. If the key doesn't exist, it gives you a default value instead of crashing.</td><td><code>my_dict.get('b', 0)</code></td></tr>
-        </table>
+
+        <div class="entry">
+            <h3>Accessing & Adding Data</h3>
+            <p>You can get a value by its key: <code>my_dict['config']</code>. You can add or update an entry the same way: <code>my_dict['new_key'] = 'new_value'</code>.</p>
+        </div>
+        <div class="entry">
+            <h3>.keys(), .values(), .items()</h3>
+            <p>These methods let you grab all the keys, all the values, or all the key-value pairs from a dictionary, which is great for looping.</p>
+        </div>
+        <div class="entry">
+            <h3>.get(key, default)</h3>
+            <p>A safe way to get a value. If the key you're looking for doesn't exist, it will give you a default value (like <code>None</code> or whatever you specify) instead of crashing your program. Example: <code>port = config.get('port', 80)</code>.</p>
+        </div>
     </div>
 </body>
 </html>
