@@ -113,7 +113,12 @@
         .content-container {
             background: rgba(13, 2, 33, 0.5);
             border: 1px solid var(--primary-color);
-            padding: 2rem;
+            padding: 1rem;
+        }
+        @media (min-width: 640px) {
+            .content-container {
+                padding: 2rem;
+            }
         }
         .card {
             background-color: rgba(13, 2, 33, 0.7);
@@ -158,6 +163,12 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
+        
+        /* Responsive heading font sizes */
+        @media (max-width: 640px) {
+            .section-title { font-size: 1.25rem; } /* text-xl */
+            .card h3 { font-size: 1.125rem; } /* text-lg */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -167,27 +178,27 @@
 
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-bold text-white" id="logo">NB_</a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="index.html" class="nav-link">return_home</a>
+        <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl sm:text-3xl font-bold text-white" id="logo">NB_</a>
+            <nav>
+                <a href="index.html" class="nav-link text-lg sm:text-xl">return_home</a>
             </nav>
         </div>
     </header>
 
     <main>
         <!-- Blog Listing Section -->
-        <section id="blogs" class="py-32">
-            <div class="container mx-auto px-6 content-container">
-                <div class="text-center">
+        <section id="blogs" class="pt-24 pb-12 sm:pt-32 sm:pb-16">
+            <div class="container mx-auto px-4 sm:px-6 content-container">
+                <div class="text-center mb-8 sm:mb-12">
                     <h2 class="section-title inline-block typewriter" data-text="[ Blog_Archive ]" data-loop="true"></h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
-
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    
                     <!-- Blog Post Card 1 -->
                     <div class="card flex flex-col p-6">
-                        <h3 class="text-2xl font-bold mb-2 text-white">[ Python Cheatsheet ]</h3>
-                        <p class="text-gray-400 mb-4 text-lg flex-grow">A comprehensive cheatsheet for Python, covering fundamental syntax, data structures, and built-in functions for quick reference.</p>
+                        <h3 class="text-xl font-bold mb-2 text-white">[ Python Cheatsheet ]</h3>
+                        <p class="text-gray-400 mb-4 text-base flex-grow">A comprehensive cheatsheet for Python, covering fundamental syntax, data structures, and built-in functions for quick reference.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tag">Python</span><span class="tag">Cheatsheet</span><span class="tag">Development</span>
                         </div>
@@ -195,17 +206,7 @@
                     </div>
 
                     <!-- Add more blog post cards here as you write them -->
-                    <!-- Example of a future card:
-                    <div class="card flex flex-col p-6">
-                        <h3 class="text-2xl font-bold mb-2 text-white">[ New Blog Post ]</h3>
-                        <p class="text-gray-400 mb-4 text-lg flex-grow">Description of your new blog post goes here.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag">Tag1</span><span class="tag">Tag2</span>
-                        </div>
-                        <a href="blogs/your-new-post.html" class="project-link"> &gt;&gt; Read_Entry</a>
-                    </div>
-                    -->
-
+                    
                 </div>
             </div>
         </section>
