@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen Bose - Blog Archive</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles - Cyberpunk Theme */
+        :root {
+            --primary-color: #FF00FF; /* Magenta */
+            --secondary-color: #00FFFF; /* Cyan */
+            --background-color: #0D0221;
+            --text-color: #F0F0F0;
+            --glow-color: rgba(255, 0, 255, 0.6);
+            --secondary-glow-color: rgba(0, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Glitchy Background */
+        #glitch-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Fonts */
+        h1, h2, h3, #logo, .btn, .section-title, .typewriter {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+        .nav-link, .tag, footer p, .project-link, .cert-badge span {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* Header & Navigation */
+        #header {
+            background: rgba(13, 2, 33, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--primary-color);
+        }
+        .nav-link {
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 8px var(--secondary-glow-color);
+            font-size: 1.25rem;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--secondary-glow-color);
+        }
+        #logo-cursor {
+            animation: blink 1s infinite;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+            display: inline-block;
+            width: 12px;
+            height: 1.5em;
+            vertical-align: bottom;
+            margin-left: 4px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        .section-title::before, .section-title::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--primary-color);
+            border-style: solid;
+        }
+        .section-title::before {
+            top: 0;
+            left: 0;
+            border-width: 2px 0 0 2px;
+        }
+        .section-title::after {
+            bottom: 0;
+            right: 0;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Cards & Containers */
+        .content-container {
+            background: rgba(13, 2, 33, 0.5);
+            border: 1px solid var(--primary-color);
+            padding: 2rem;
+        }
+        .card {
+            background-color: rgba(13, 2, 33, 0.7);
+            border: 1px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px -5px var(--secondary-glow-color);
+        }
+        .tag {
+            background-color: rgba(0, 255, 255, 0.1);
+            color: var(--secondary-color);
+            padding: 0.25rem 0.75rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0% 100%);
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .project-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--secondary-glow-color);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Dynamic Background -->
+    <canvas id="glitch-canvas"></canvas>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold text-white" id="logo">NB_</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">return_home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Blog Listing Section -->
+        <section id="blogs" class="py-32">
+            <div class="container mx-auto px-6 content-container">
+                <div class="text-center">
+                    <h2 class="section-title inline-block">[ Blog_Archive ]</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-left">
+                    
+                    <!-- Blog Post Card 1 -->
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ Python Cheatsheet ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">A comprehensive cheatsheet for Python, covering fundamental syntax, data structures, and built-in functions for quick reference.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Python</span><span class="tag">Cheatsheet</span><span class="tag">Development</span>
+                        </div>
+                        <a href="blogs/python-cheatsheet-buildin.html" class="project-link"> &gt;&gt; Read_Entry</a>
+                    </div>
+
+                    <!-- Add more blog post cards here as you write them -->
+                    <!-- Example of a future card:
+                    <div class="card flex flex-col p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">[ New Blog Post ]</h3>
+                        <p class="text-gray-400 mb-4 text-lg flex-grow">Description of your new blog post goes here.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Tag1</span><span class="tag">Tag2</span>
+                        </div>
+                        <a href="blogs/your-new-post.html" class="project-link"> &gt;&gt; Read_Entry</a>
+                    </div>
+                    -->
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6">
+        <p class="text-gray-600">>> STATUS: ARCHIVE ACCESSED <<</p>
+    </footer>
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Glitchy Background Effect ---
+            const canvas = document.getElementById('glitch-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let lines = [];
+            const lineCount = 50;
+
+            class Line {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.length = Math.random() * 200 + 50;
+                    this.speed = Math.random() * 2 + 1;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 0, 255, ' + this.opacity + ')' : 'rgba(0, 255, 255, ' + this.opacity + ')';
+                }
+                update() {
+                    this.y += this.speed;
+                    if (this.y > canvas.height) {
+                        this.y = 0 - this.length;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                draw() {
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y + this.length);
+                    ctx.stroke();
+                }
+            }
+
+            function initLines() {
+                for (let i = 0; i < lineCount; i++) {
+                    lines.push(new Line());
+                }
+            }
+            initLines();
+
+            function animateLines() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < lines.length; i++) {
+                    lines[i].update();
+                    lines[i].draw();
+                }
+                requestAnimationFrame(animateLines);
+            }
+            animateLines();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                lines = [];
+                initLines();
+            });
+
+            // --- Blinking Cursor for Logo ---
+            const logo = document.getElementById('logo');
+            if (logo) {
+                const cursorSpan = document.createElement('span');
+                cursorSpan.id = 'logo-cursor';
+                logo.appendChild(cursorSpan);
+            }
+        });
+    </script>
+</body>
+</html>
