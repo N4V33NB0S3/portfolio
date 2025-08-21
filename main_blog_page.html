@@ -166,8 +166,17 @@
         
         /* Responsive heading font sizes */
         @media (max-width: 640px) {
-            .section-title { font-size: 1.25rem; } /* text-xl */
-            .card h3 { font-size: 1.125rem; } /* text-lg */
+            .section-title { 
+                font-size: 1.5rem; /* text-2xl */
+                padding: 0.5rem;
+            }
+            .section-title::before, .section-title::after {
+                width: 15px;
+                height: 15px;
+            }
+            .card h3 { 
+                font-size: 1.125rem; /* text-lg */
+            }
         }
     </style>
 </head>
