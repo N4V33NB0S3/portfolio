@@ -24,7 +24,7 @@
             word-wrap: break-word;
         }
         .container {
-            max-width: 100%; /* Full width */
+            max-width: 100%;
             margin: auto;
             background-color: rgba(13, 2, 33, 0.8);
             padding: 1.5rem;
@@ -40,7 +40,7 @@
             text-transform: uppercase;
         }
         h3 {
-            font-family: 'Fira Code', monospace; /* Coding font for subheadings */
+            font-family: 'Fira Code', monospace;
             color: var(--secondary-color);
             margin-top: 1.5em;
             margin-bottom: 0.5em;
@@ -62,17 +62,20 @@
             margin-bottom: 1.5em;
         }
 
-        /* On very large screens, add a bit of max-width for readability */
+        /* On very large screens, constrain width */
         @media (min-width: 1400px) {
             .container {
                 max-width: 1200px;
             }
         }
-
-        /* Larger screens */
-        @media (min-width: 640px) {
+        
+        /* Mobile view adjustments */
+        @media (max-width: 640px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            h3 { font-size: 1rem; }
             .container {
-                padding: 2rem;
+                padding: 1rem;
             }
         }
     </style>
@@ -84,7 +87,7 @@
 
         <h2>Part 1: Core System Functions</h2>
         <p class="human-touch">These are your basic commands, the bread and butter of any script.</p>
-
+        
         <div class="entry">
             <h3>print(value)</h3>
             <p>The classic way to show something on screen. Essential for seeing what your code is doing. You can also use f-strings for dynamic output: <code>name = "Naveen"</code>, then <code>print(f"User: {name}")</code>.</p>
