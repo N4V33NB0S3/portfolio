@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Cheat Sheet: Common Functions & Methods</title>
+    <title>Python Cheat Sheet: A Netrunner's Guide</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --primary-color: #FF00FF; /* Magenta */
+            --secondary-color: #00FFFF; /* Cyan */
+            --background-color: #0D0221;
+            --text-color: #F0F0F0;
+            --glow-color: rgba(255, 0, 255, 0.6);
+        }
 
         body {
-            font-family: 'Fira Code', 'Consolas', 'Menlo', monospace;
+            font-family: 'Share Tech Mono', monospace;
             line-height: 1.7;
-            color: #c0c0c0;
-            background-color: #0d0221;
-            padding: 20px;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 1rem;
         }
         .container {
             max-width: 800px;
             margin: auto;
-            background-color: rgba(10, 10, 30, 0.8);
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #00f7ff;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+            background-color: rgba(13, 2, 33, 0.8);
+            padding: 1.5rem;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 20px var(--glow-color);
         }
         h1, h2 {
-            color: #00f7ff;
-            border-bottom: 2px solid #ff00ff;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
-            text-shadow: 0 0 5px #00f7ff;
+            text-shadow: 0 0 8px var(--glow-color);
+            text-transform: uppercase;
         }
         table {
             width: 100%;
@@ -36,84 +45,76 @@
         }
         th, td {
             padding: 12px;
-            border: 1px solid #ff00ff;
+            border: 1px solid #333;
             text-align: left;
         }
         th {
             background-color: #2a0a5e;
-            color: #f0f0f0;
+            color: var(--primary-color);
         }
         code {
             background-color: #1a1a1a;
-            color: #f0f0f0;
+            color: var(--secondary-color);
             padding: 3px 6px;
             border-radius: 4px;
             border: 1px solid #333;
+        }
+        .human-touch {
+            color: #aaa;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Python Cheat Sheet: Common Functions & Methods</h1>
-        <p>This is a reference guide to some of the most frequently used built-in functions and data type methods in Python.</p>
+        <h1>Python Cheat Sheet: A Netrunner's Guide</h1>
+        <p class="human-touch">Here's a quick reference for some of the most common tools in your Python arsenal. Think of it as your personal cyberdeck quick-menu.</p>
 
-        <h2>Part 1: Built-in Functions</h2>
+        <h2>Part 1: Core System Functions</h2>
+        <p class="human-touch">These are your basic commands, the bread and butter of any script.</p>
         <table>
-            <tr><th>Function</th><th>Description</th><th>Example</th></tr>
-            <tr><td><code>print(value)</code></td><td>Displays a value to the console.</td><td><code>print("Hello")</code></td></tr>
-            <tr><td><code>len(item)</code></td><td>Returns the number of items (length) of an object.</td><td><code>len([1, 2, 3])</code> returns <code>3</code></td></tr>
-            <tr><td><code>type(variable)</code></td><td>Returns the data type of a variable.</td><td><code>type(10)</code> returns <code>&lt;class 'int'&gt;</code></td></tr>
-            <tr><td><code>int(value)</code></td><td>Converts a value to an integer.</td><td><code>int("5")</code> returns <code>5</code></td></tr>
-            <tr><td><code>str(value)</code></td><td>Converts a value to a string.</td><td><code>str(123)</code> returns <code>'123'</code></td></tr>
-            <tr><td><code>list(item)</code></td><td>Converts an item (like a set or string) to a list.</td><td><code>list("abc")</code> returns <code>['a', 'b', 'c']</code></td></tr>
-            <tr><td><code>dict()</code></td><td>Creates an empty dictionary.</td><td><code>my_dict = dict()</code></td></tr>
-            <tr><td><code>set(list)</code></td><td>Converts a list to a set, removing duplicates.</td><td><code>set([1, 2, 1])</code> returns <code>{1, 2}</code></td></tr>
-            <tr><td><code>sum(list)</code></td><td>Adds up all the numbers in a list.</td><td><code>sum([10, 20])</code> returns <code>30</code></td></tr>
-            <tr><td><code>max(list)</code></td><td>Finds the highest value in a list.</td><td><code>max([10, 20])</code> returns <code>20</code></td></tr>
-            <tr><td><code>min(list)</code></td><td>Finds the lowest value in a list.</td><td><code>min([10, 20])</code> returns <code>10</code></td></tr>
-            <tr><td><code>sorted(list)</code></td><td>Returns a new, sorted list.</td><td><code>sorted([3, 1, 2])</code> returns <code>[1, 2, 3]</code></td></tr>
-            <tr><td><code>range(stop)</code></td><td>Generates a sequence of numbers.</td><td><code>list(range(3))</code> returns <code>[0, 1, 2]</code></td></tr>
-            <tr><td><code>enumerate(list)</code></td><td>Used in loops to get both index and value.</td><td><code>for i, v in enumerate(['a', 'b'])</code></td></tr>
-            <tr><td><code>zip(list1, list2)</code></td><td>Used in loops to pair items from two lists.</td><td><code>for a, b in zip([1,2], ['a','b'])</code></td></tr>
-            <tr><td><code>isinstance(var, type)</code></td><td>Checks if a variable is of a certain type.</td><td><code>isinstance(5, int)</code> returns <code>True</code></td></tr>
+            <tr><th>Function</th><th>What It Does</th><th>Example</th></tr>
+            <tr><td><code>print(value)</code></td><td>The classic way to show something on screen. Essential for seeing what your code is doing.</td><td><code>print("Jack in!")</code></td></tr>
+            <tr><td><code>len(item)</code></td><td>Tells you the size of something, like characters in a string or items in a list.</td><td><code>len([1, 2, 3])</code> // returns 3</td></tr>
+            <tr><td><code>type(variable)</code></td><td>Identifies what kind of data you're dealing with (number, text, list, etc.).</td><td><code>type(10)</code> // returns &lt;class 'int'&gt;</td></tr>
+            <tr><td><code>int(value)</code></td><td>Forces a value to become a whole number. Good for converting text digits to actual numbers.</td><td><code>int("5")</code> // returns 5</td></tr>
+            <tr><td><code>str(value)</code></td><td>Turns any value into a string (text).</td><td><code>str(123)</code> // returns '123'</td></tr>
+            <tr><td><code>list(item)</code></td><td>Converts something iterable (like text) into a list of its parts.</td><td><code>list("abc")</code> // returns ['a', 'b', 'c']</td></tr>
+            <tr><td><code>sum(list)</code></td><td>Quickly adds up all the numbers in a list.</td><td><code>sum([10, 20, 5])</code> // returns 35</td></tr>
+            <tr><td><code>sorted(list)</code></td><td>Gives you a new, sorted version of a list without messing up the original.</td><td><code>sorted([3, 1, 2])</code> // returns [1, 2, 3]</td></tr>
         </table>
 
-        <h2>Part 2: String Methods</h2>
+        <h2>Part 2: String Manipulation</h2>
+        <p class="human-touch">Text is data. Here's how you slice it, dice it, and put it back together.</p>
         <table>
-            <tr><th>Method</th><th>Description</th><th>Example</th></tr>
-            <tr><td><code>.upper()</code></td><td>Converts the string to uppercase.</td><td><code>'hello'.upper()</code> returns <code>'HELLO'</code></td></tr>
-            <tr><td><code>.lower()</code></td><td>Converts the string to lowercase.</td><td><code>'HELLO'.lower()</code> returns <code>'hello'</code></td></tr>
-            <tr><td><code>.strip()</code></td><td>Removes whitespace from the beginning and end.</td><td><code>'  hi  '.strip()</code> returns <code>'hi'</code></td></tr>
-            <tr><td><code>.replace(old, new)</code></td><td>Replaces a piece of the string with another.</td><td><code>'a-b-c'.replace('-', ' ')</code> returns <code>'a b c'</code></td></tr>
-            <tr><td><code>.startswith(prefix)</code></td><td>Returns <code>True</code> if the string starts with <code>prefix</code>.</td><td><code>'config.txt'.startswith('conf')</code> returns <code>True</code></td></tr>
-            <tr><td><code>.endswith(suffix)</code></td><td>Returns <code>True</code> if the string ends with <code>suffix</code>.</td><td><code>'script.py'.endswith('.py')</code> returns <code>True</code></td></tr>
-            <tr><td><code>.split(separator)</code></td><td>Breaks the string into a list.</td><td><code>'192.168.1.1'.split('.')</code> returns <code>['192', '168', '1', '1']</code></td></tr>
-            <tr><td><code>.join(list)</code></td><td>Joins a list of strings into one string.</td><td><code>'-'.join(['a', 'b'])</code> returns <code>'a-b'</code></td></tr>
-            <tr><td><code>.find(substring)</code></td><td>Returns the index of a substring, or -1 if not found.</td><td><code>'abc'.find('b')</code> returns <code>1</code></td></tr>
-            <tr><td><code>.count(substring)</code></td><td>Counts how many times a substring appears.</td><td><code>'aba'.count('a')</code> returns <code>2</code></td></tr>
+            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
+            <tr><td><code>.upper()</code></td><td>SHOUTS YOUR TEXT. Converts to uppercase.</td><td><code>'hello'.upper()</code> // returns 'HELLO'</td></tr>
+            <tr><td><code>.lower()</code></td><td>Whispers your text. Converts to lowercase.</td><td><code>'HELLO'.lower()</code> // returns 'hello'</td></tr>
+            <tr><td><code>.strip()</code></td><td>Cleans up messy text by removing whitespace from the ends.</td><td><code>'  hi  '.strip()</code> // returns 'hi'</td></tr>
+            <tr><td><code>.replace(old, new)</code></td><td>Finds a piece of text and swaps it with something else.</td><td><code>'a-b-c'.replace('-', ' ')</code> // returns 'a b c'</td></tr>
+            <tr><td><code>.split(separator)</code></td><td>Breaks a string into a list of smaller strings. Perfect for parsing data.</td><td><code>'192.168.1.1'.split('.')</code> // returns ['192', '168', '1', '1']</td></tr>
+            <tr><td><code>.join(list)</code></td><td>The opposite of split. Takes a list of strings and joins them into one.</td><td><code>'-'.join(['a', 'b'])</code> // returns 'a-b'</td></tr>
         </table>
 
-        <h2>Part 3: List Methods</h2>
+        <h2>Part 3: List Operations</h2>
+        <p class="human-touch">Lists are your go-to for storing collections of items in order.</p>
         <table>
-            <tr><th>Method</th><th>Description</th><th>Example</th></tr>
-            <tr><td><code>.append(item)</code></td><td>Adds a single item to the end of the list.</td><td><code>my_list.append(4)</code></td></tr>
-            <tr><td><code>.extend(list2)</code></td><td>Adds all items from another list to the end.</td><td><code>my_list.extend([5, 6])</code></td></tr>
-            <tr><td><code>.pop(index)</code></td><td>Removes and returns an item at an index (default: last).</td><td><code>my_list.pop()</code></td></tr>
-            <tr><td><code>.remove(item)</code></td><td>Removes the first occurrence of a specific item.</td><td><code>my_list.remove(3)</code></td></tr>
-            <tr><td><code>.sort()</code></td><td>Sorts the list in place (modifies the original).</td><td><code>my_list.sort()</code></td></tr>
-            <tr><td><code>.reverse()</code></td><td>Reverses the order of the list in place.</td><td><code>my_list.reverse()</code></td></tr>
-            <tr><td><code>.index(item)</code></td><td>Returns the index of the first occurrence of an item.</td><td><code>my_list.index(2)</code></td></tr>
-            <tr><td><code>.count(item)</code></td><td>Counts how many times an item appears in the list.</td><td><code>my_list.count(1)</code></td></tr>
+            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
+            <tr><td><code>.append(item)</code></td><td>Adds a single item to the very end of your list.</td><td><code>my_list.append(4)</code></td></tr>
+            <tr><td><code>.extend(list2)</code></td><td>Merges another list onto the end of your current one.</td><td><code>my_list.extend([5, 6])</code></td></tr>
+            <tr><td><code>.pop(index)</code></td><td>Removes and gives you an item from a specific position. If you don't say where, it takes the last one.</td><td><code>my_list.pop()</code></td></tr>
+            <tr><td><code>.remove(item)</code></td><td>Hunts down and removes the first item that matches what you're looking for.</td><td><code>my_list.remove(3)</code></td></tr>
+            <tr><td><code>.sort()</code></td><td>Sorts the list for real, modifying the original. No going back.</td><td><code>my_list.sort()</code></td></tr>
         </table>
 
-        <h2>Part 4: Dictionary Methods</h2>
+        <h2>Part 4: Dictionary Tactics</h2>
+        <p class="human-touch">Dictionaries store data as key-value pairs, like a high-tech filing cabinet.</p>
         <table>
-            <tr><th>Method</th><th>Description</th><th>Example</th></tr>
-            <tr><td><code>.keys()</code></td><td>Returns a view of the dictionary's keys.</td><td><code>my_dict.keys()</code></td></tr>
-            <tr><td><code>.values()</code></td><td>Returns a view of the dictionary's values.</td><td><code>my_dict.values()</code></td></tr>
-            <tr><td><code>.items()</code></td><td>Returns a view of key-value pairs (used in loops).</td><td><code>my_dict.items()</code></td></tr>
-            <tr><td><code>.get(key, default)</code></td><td>Gets a value by key; returns <code>default</code> if key not found.</td><td><code>my_dict.get('b', 0)</code></td></tr>
-            <tr><td><code>.pop(key)</code></td><td>Removes a key and returns its value.</td><td><code>my_dict.pop('a')</code></td></tr>
+            <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
+            <tr><td><code>.keys()</code></td><td>Gives you all the keys (the labels) from your dictionary.</td><td><code>my_dict.keys()</code></td></tr>
+            <tr><td><code>.values()</code></td><td>Gives you all the values (the data) from your dictionary.</td><td><code>my_dict.values()</code></td></tr>
+            <tr><td><code>.items()</code></td><td>Hands you key-value pairs together, perfect for looping through.</td><td><code>my_dict.items()</code></td></tr>
+            <tr><td><code>.get(key, default)</code></td><td>Safely gets a value. If the key doesn't exist, it gives you a default value instead of crashing.</td><td><code>my_dict.get('b', 0)</code></td></tr>
         </table>
     </div>
 </body>
