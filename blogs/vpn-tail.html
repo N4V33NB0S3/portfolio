@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NordVPN Meshnet DIY Alternative with Raspberry Pi</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background-color: #F9FAFB; /* Light Gray */
+            --container-bg: #FFFFFF; /* White */
+            --text-color: #374151; /* Dark Gray */
+            --heading-color: #111827; /* Darkest Gray */
+            --accent-color: #2563EB; /* Blue */
+            --border-color: #E5E7EB; /* Light Gray Border */
+            --code-bg: #F3F4F6; /* Light Gray for Code */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        #header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #header a {
+            color: var(--heading-color);
+        }
+
+        #header a:hover {
+            color: var(--accent-color);
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-subtitle {
+             font-size: 1.125rem;
+             color: var(--text-color);
+             margin-bottom: 2.5rem;
+        }
+
+        .blog-content h2 {
+            font-size: 1.75rem;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .blog-content p, .blog-content li {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+
+        .blog-content ul li::before {
+            content: '→';
+            color: var(--accent-color);
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        .blog-content strong {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .blog-content a {
+            color: var(--accent-color);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            transition: color 0.3s, text-decoration-color 0.3s;
+        }
+
+        .blog-content a:hover {
+            color: #3B82F6;
+            text-decoration-color: #3B82F6;
+        }
+
+        .blog-content code {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg);
+            color: #4B5563;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block-header {
+            background-color: #E5E7EB;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            display: flex;
+            justify-content: flex-end;
+            border: 1px solid #D1D5DB;
+            border-bottom: none;
+        }
+
+        .copy-button {
+            background-color: transparent;
+            color: #6B7280;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .copy-button:hover {
+            color: var(--heading-color);
+        }
+
+        .blog-content pre {
+            background-color: var(--code-bg);
+            color: var(--text-color);
+            padding: 1.5rem;
+            overflow-x: auto;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            margin: 0;
+            border: 1px solid #D1D5DB;
+        }
+
+        .blog-content pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 1.5rem 1rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            .blog-title {
+                font-size: 2rem;
+            }
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header id="header" class="sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl">
+            <a href="../index.html" class="text-2xl font-bold">NB_</a>
+            <a href="../blogs.html" class="font-bold">RETURN_TO_ARCHIVE</a>
+        </div>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <article class="blog-container p-6 md:p-10">
+            <h1 class="blog-title">NordVPN Meshnet DIY Alternative with Raspberry Pi</h1>
+            <p class="blog-subtitle">When a feature you rely on disappears, you build a better one yourself. Here's the blueprint.</p>
+
+            <div class="blog-content">
+                <p>When NordVPN announced they were discontinuing Meshnet, many of us lost a simple way to connect our devices remotely. I relied on Meshnet to access my Raspberry Pi, keeping all my internet traffic protected without interfering with remote access.</p>
+                <p>So, I decided to build my own solution. The goal was simple:</p>
+                <ul>
+                    <li>Access my Raspberry Pi remotely and securely.</li>
+                    <li>Stay connected to NordVPN without losing LAN access.</li>
+                    <li>Make the setup persistent across reboots.</li>
+                    <li>Automatically reconnect if the VPN drops.</li>
+                </ul>
+                <p>After some trial and error, I achieved it. Here’s how.</p>
+
+                <h2>The Challenges</h2>
+                <ul>
+                    <li>Losing LAN access whenever I connected to NordVPN with Tailscale running.</li>
+                    <li>Tailscale becoming unreachable once the VPN was active.</li>
+                    <li>Needing a setup that would survive a reboot without manual reconfiguration.</li>
+                    <li>Ensuring auto-reconnection in case the NordVPN connection dropped.</li>
+                </ul>
+
+                <h2>The Solution</h2>
+                <p>Instead of relying on Meshnet, I combined NordVPN’s whitelist/allowlist features, Tailscale, and a lightweight <a href="https://github.com/N4V33NB0S3/VPN_switcher/blob/main/vpn_switcherV3.py" target="_blank" rel="noopener noreferrer">vpn_switcher script</a>. This combination gave me:</p>
+                <ul>
+                    <li>Full LAN and Tailscale access even while NordVPN is active.</li>
+                    <li>Automatic reconnection on failure.</li>
+                    <li>Persistence across reboots.</li>
+                </ul>
+
+                <h2>Step 1: Install and Configure NordVPN</h2>
+                 <div class="code-block-wrapper">
+                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                    <pre><code>sudo apt update
+sudo apt install nordvpn
+nordvpn login</code></pre>
+                </div>
+                <p>Next, whitelist your local network and your Tailscale subnet. <strong>Remember to replace the placeholders</strong> with your actual subnets.</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                    <pre><code>nordvpn whitelist add subnet &lt;routersubnet&gt;/24
+nordvpn whitelist add subnet &lt;tailscalesubnet&gt;/10</code></pre>
+                </div>
+                <p>This ensures your Pi stays reachable on your local network. I learned this the hard way: I forgot to whitelist, connected the VPN, and immediately lost my LAN connection because NordVPN overrides the default gateway. Also, don’t forget to disable NordVPN's killswitch and the old meshnet feature.</p>
+
+                <h2>Step 2: Add Allowlist Ports</h2>
+                 <div class="code-block-wrapper">
+                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                    <pre><code>nordvpn allowlist add port 41641</code></pre>
+                </div>
+                <p>Check if the rules were added. This command shows all settings, including your whitelist and allowed ports:</p>
+                 <div class="code-block-wrapper">
+                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                    <pre><code>nordvpn settings</code></pre>
+                </div>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/allowlist_nord.jpg" alt="NordVPN Settings" class="screenshot-placeholder">
+                <p><strong>Why this matters:</strong></p>
+                <ul>
+                    <li>The <strong>LAN subnet</strong> keeps your local network alive.</li>
+                    <li>The <strong>Tailscale subnet</strong> keeps Tailscale alive.</li>
+                    <li><strong>Port 41641 (UDP)</strong> allows Tailscale peer-to-peer traffic.</li>
+                    <li><strong>Ports 443 & 80 (TCP)</strong> allow the Tailscale control plane when UDP is blocked.</li>
+                </ul>
+
+                <h2>Step 3: Keep Tailscale Reachable</h2>
+                <p>Install and configure Tailscale:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                    <pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up</code></pre>
+                </div>
+                <p>After logging in, verify connectivity before and after enabling NordVPN. With the whitelist configured, your Pi should remain accessible via its Tailscale IP.</p>
+                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_status.jpg" alt="Tailscale Status" class="screenshot-placeholder">
+                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_webview.jpg" alt="Tailscale Web View" class="screenshot-placeholder">
+                <p><strong>Note:</strong> I ran into an issue where Tailscale overrode my DNS resolver. I couldn't reinstall it because <code>tailscale.com</code> was unreachable. I had to manually edit <code>/etc/resolv.conf</code> and set the primary nameserver to <code>8.8.8.8</code>.</p>
+
+                <h2>Step 4: Connect NordVPN After Tailscale</h2>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/vpn_status.jpg" alt="Successful Connection" class="screenshot-placeholder">
+                <p>Manually connect to NordVPN and check connectivity, especially between your Tailscale IPs.</p>
+
+                <h2>Step 5: Persistence Across Reboots</h2>
+                <p>The <code>vpn_switcher</code> script can switch countries and run at boot. To achieve this, run the script as a systemd service.</p>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/vpn_service.jpg" alt="Systemd Service Setup" class="screenshot-placeholder">
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/vpn_switcher.jpg" alt="VPN Switcher Script" class="screenshot-placeholder">
+
+                <h2>Final Result</h2>
+                <ul>
+                    <li>My Raspberry Pi stays reachable on LAN and Tailscale, even with NordVPN active.</li>
+                    <li>The setup survives reboots.</li>
+                    <li>If the VPN drops, the script reconnects automatically.</li>
+                    <li>Streaming and remote access work flawlessly.</li>
+                </ul>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/interface_ips.jpg" alt="Final Dashboard" class="screenshot-placeholder">
+
+                <h2>Conclusion</h2>
+                <p>While NordVPN is discontinuing Meshnet, it’s possible to build a reliable alternative. With some whitelisting, Tailscale, and a small custom script, my Raspberry Pi is now just as accessible—only more flexible.</p>
+                <p>This setup gives you full control and ensures you’re not locked into a feature that might disappear in the future.</p>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const pre = button.closest('.code-block-wrapper').querySelector('pre');
+                const code = pre.querySelector('code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    const buttonText = button.querySelector('span');
+                    const originalText = buttonText.innerText;
+                    buttonText.innerText = 'Copied!';
+                    setTimeout(() => {
+                        buttonText.innerText = originalText;
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
