@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NordVPN Meshnet Discontinued? Here’s My DIY Alternative with Raspberry Pi</title>
+    <title>NordVPN Meshnet Discontinued? Here’s My Alternative with Tailscale</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../favicon.png">
@@ -207,7 +207,7 @@
 
     <main class="py-12 md:py-20">
         <article class="blog-container p-6 md:p-10">
-            <h1 class="blog-title">NordVPN Meshnet Discontinued? Here’s My DIY Alternative with Raspberry Pi</h1>
+            <h1 class="blog-title">NordVPN Meshnet Discontinued? Here’s My Alternative with Tailscale</h1>
 
             <div class="blog-content">
                 <p>When NordVPN announced they were discontinuing Meshnet, many of us lost a simple way to connect our devices remotely. I relied on Meshnet to access my Raspberry Pi, keeping all my internet traffic protected without interfering with remote access.</p>
@@ -283,7 +283,7 @@ sudo tailscale up</code></pre>
                 <p><strong>Note:</strong> I ran into an issue where Tailscale overrode my DNS resolver. I couldn't reinstall it because <code>tailscale.com</code> was unreachable. I had to manually edit <code>/etc/resolv.conf</code> and set the primary nameserver to <code>8.8.8.8</code>.</p>
 
                 <h2>Step 4: Connect NordVPN After Tailscale</h2>
-                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/vpn_status.jpg" alt="Successful Connection" class="screenshot-placeholder">
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/vpn_s.jpg" alt="Successful Connection" class="screenshot-placeholder">
                 <p>Manually connect to NordVPN and check connectivity, especially between your Tailscale IPs.</p>
 
                 <h2>Step 5: Persistence Across Reboots</h2>
