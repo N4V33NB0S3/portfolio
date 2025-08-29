@@ -69,7 +69,6 @@
         .blog-title {
             font-size: 2.5rem;
             line-height: 1.2;
-            margin-bottom: 2.5rem;
         }
 
         .blog-content h2 {
@@ -207,7 +206,8 @@
 
     <main class="py-12 md:py-20">
         <article class="blog-container p-6 md:p-10">
-            <h1 class="blog-title">NordVPN Meshnet Discontinued? Here’s My Alternative with Tailscale</h1>
+            <h1 class="blog-title mb-4">NordVPN Meshnet Discontinued? Here’s My Alternative with Tailscale</h1>
+            <p class="text-sm text-gray-500 mb-10">Posted on Aug 29, 2025 by <a href="mailto:naveenbose1206@gmail.com" class="text-accent-color font-medium hover:text-blue-700 transition-colors">Naveen Bose</a></p>
 
             <div class="blog-content">
                 <p>When NordVPN announced they were discontinuing Meshnet, many of us lost a simple way to connect our devices remotely. I relied on Meshnet to access my Raspberry Pi, keeping all my internet traffic protected without interfering with remote access.</p>
@@ -237,9 +237,9 @@
                 </ul>
 
                 <h2>Step 1: Install and Configure NordVPN</h2>
-                 <div class="code-block-wrapper">
-                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
-                    <pre><code>sudo apt update
+                   <div class="code-block-wrapper">
+                       <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                       <pre><code>sudo apt update
 sudo apt install nordvpn
 nordvpn login</code></pre>
                 </div>
@@ -252,14 +252,14 @@ nordvpn whitelist add subnet &lt;tailscalesubnet&gt;/10</code></pre>
                 <p>This ensures your Pi stays reachable on your local network. I learned this the hard way: I forgot to whitelist, connected the VPN, and immediately lost my LAN connection because NordVPN overrides the default gateway. Also, don’t forget to disable NordVPN's killswitch and the old meshnet feature.</p>
 
                 <h2>Step 2: Add Allowlist Ports</h2>
-                 <div class="code-block-wrapper">
-                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
-                    <pre><code>nordvpn allowlist add port 41641</code></pre>
+                   <div class="code-block-wrapper">
+                       <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                       <pre><code>nordvpn allowlist add port 41641</code></pre>
                 </div>
                 <p>Check if the rules were added. This command shows all settings, including your whitelist and allowed ports:</p>
-                 <div class="code-block-wrapper">
-                    <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
-                    <pre><code>nordvpn settings</code></pre>
+                   <div class="code-block-wrapper">
+                       <div class="code-block-header"><button class="copy-button" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span></button></div>
+                       <pre><code>nordvpn settings</code></pre>
                 </div>
                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/allowlist_nord.jpg" alt="NordVPN Settings" class="screenshot-placeholder">
                 <p><strong>Why this matters:</strong></p>
@@ -278,8 +278,8 @@ nordvpn whitelist add subnet &lt;tailscalesubnet&gt;/10</code></pre>
 sudo tailscale up</code></pre>
                 </div>
                 <p>After logging in, verify connectivity before and after enabling NordVPN. With the whitelist configured, your Pi should remain accessible via its Tailscale IP.</p>
-                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_status.jpg" alt="Tailscale Status" class="screenshot-placeholder">
-                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_webview.jpg" alt="Tailscale Web View" class="screenshot-placeholder">
+                   <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_status.jpg" alt="Tailscale Status" class="screenshot-placeholder">
+                   <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/vpn-tail/tailscale_webview.jpg" alt="Tailscale Web View" class="screenshot-placeholder">
                 <p><strong>Note:</strong> I ran into an issue where Tailscale overrode my DNS resolver. I couldn't reinstall it because <code>tailscale.com</code> was unreachable. I had to manually edit <code>/etc/resolv.conf</code> and set the primary nameserver to <code>8.8.8.8</code>.</p>
 
                 <h2>Step 4: Connect NordVPN After Tailscale</h2>
