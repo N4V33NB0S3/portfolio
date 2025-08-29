@@ -34,7 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* Glitchy Background */
         #glitch-canvas {
             position: fixed;
             top: 0;
@@ -44,16 +43,16 @@
             z-index: -1;
         }
 
-        /* Fonts */
-        h1, h2, h3, #logo, .btn, .section-title, .typewriter {
+        /* Fonts & Global Styles */
+        h1, h2, h3, #logo, .section-title, .typewriter {
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
         }
-        .nav-link, .tag, footer p, .project-link, .cert-badge span {
+        .nav-link, .tag, footer p, .project-link {
             font-family: 'Share Tech Mono', monospace;
         }
 
-        /* Header & Navigation */
+        /* Header */
         #header {
             background: rgba(13, 2, 33, 0.7);
             backdrop-filter: blur(5px);
@@ -64,7 +63,6 @@
             color: var(--secondary-color);
             transition: all 0.3s ease;
             text-shadow: 0 0 8px var(--secondary-glow-color);
-            font-size: 1.25rem;
         }
         .nav-link:hover {
             color: #ffffff;
@@ -75,184 +73,184 @@
             background-color: var(--primary-color);
             box-shadow: 0 0 10px var(--glow-color);
             display: inline-block;
-            width: 12px;
-            height: 1.5em;
+            width: 10px;
+            height: 1.25em;
             vertical-align: bottom;
-            margin-left: 4px;
+            margin-left: 3px;
         }
 
         /* Section Title */
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
             color: var(--primary-color);
             text-shadow: 0 0 10px var(--glow-color);
             position: relative;
             padding: 0.5rem 1rem;
+            font-size: 1.75rem; /* text-3xl */
+        }
+        @media (min-width: 640px) {
+            .section-title {
+                font-size: 2.25rem; /* text-4xl */
+            }
         }
         .section-title::before, .section-title::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             border-color: var(--primary-color);
             border-style: solid;
         }
-        .section-title::before {
-            top: 0;
-            left: 0;
-            border-width: 2px 0 0 2px;
-        }
-        .section-title::after {
-            bottom: 0;
-            right: 0;
-            border-width: 0 2px 2px 0;
-        }
+        .section-title::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+        .section-title::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
-        /* Cards & Containers */
-        .content-container {
-            background: rgba(13, 2, 33, 0.5);
-            border: 1px solid var(--primary-color);
-            padding: 1rem;
-        }
-        @media (min-width: 640px) {
-            .content-container {
-                padding: 2rem;
-            }
-        }
+        /* New Card Design */
         .card {
             background-color: rgba(13, 2, 33, 0.7);
             border: 1px solid var(--secondary-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 0 25px -5px var(--secondary-glow-color);
         }
+        .card-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .card-title {
+            color: #ffffff;
+            font-size: 1.25rem; /* text-xl */
+        }
+        .card-description {
+            color: #cccccc;
+            flex-grow: 1;
+        }
         .tag {
             background-color: rgba(0, 255, 255, 0.1);
             color: var(--secondary-color);
-            padding: 0.25rem 0.75rem;
             border: 1px solid rgba(0, 255, 255, 0.3);
             clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0% 100%);
         }
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             color: var(--secondary-color);
             transition: all 0.3s ease;
-            font-size: 1.1rem;
         }
         .project-link:hover {
             color: #ffffff;
             text-shadow: 0 0 8px var(--secondary-glow-color);
         }
-         /* Typewriter Animation */
+
+        /* Typewriter Animation */
         .typewriter .cursor {
             display: inline-block;
             background-color: var(--primary-color);
-            width: 12px;
+            width: 10px;
             height: 1.2em;
             margin-left: 2px;
             animation: blink 1s infinite;
-            box-shadow: 0 0 10px var(--glow-color);
         }
         @keyframes blink {
-            0%, 100% { opacity: 1; }
             50% { opacity: 0; }
-        }
-        
-        /* Responsive heading font sizes */
-        @media (max-width: 640px) {
-            .section-title { 
-                font-size: 1.5rem; /* text-2xl */
-                padding: 0.5rem;
-            }
-            .section-title::before, .section-title::after {
-                width: 15px;
-                height: 15px;
-            }
-            .card h3 { 
-                font-size: 1.125rem; /* text-lg */
-            }
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Dynamic Background -->
     <canvas id="glitch-canvas"></canvas>
 
-    <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl sm:text-3xl font-bold text-white" id="logo">NB_</a>
+            <a href="../index.html" class="text-2xl sm:text-3xl font-bold text-white" id="logo">NB_</a>
             <nav>
-                <a href="index.html" class="nav-link text-lg sm:text-xl">return_home</a>
+                <a href="../index.html" class="nav-link text-lg sm:text-xl">return_home</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Blog Listing Section -->
         <section id="blogs" class="pt-24 pb-12 sm:pt-32 sm:pb-16">
-            <div class="container mx-auto px-4 sm:px-6 content-container">
-                <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="section-title inline-block typewriter" data-text="[ Blog_Archive ]" data-loop="true"></h2>
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-10 sm:mb-16">
+                    <h2 class="section-title inline-block typewriter" data-text="[ Blog_Archive ]"></h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                    
-                    <!-- Blog Post Card 1 -->
-                    <div class="card flex flex-col p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white">[ Python Cheatsheet ]</h3>
-                        <p class="text-gray-400 mb-4 text-base flex-grow">A comprehensive cheatsheet for Python, covering fundamental syntax, data structures, and built-in functions for quick reference.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag">Python</span><span class="tag">Cheatsheet</span><span class="tag">Development</span>
+
+                    <!-- Card 1: VPN/Tailscale -->
+                    <div class="card">
+                        <a href="https://github.com/N4V33NB0S3/portfolio/blob/main/blogs/vpn-tail.html">
+                            <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/vpn_thumnail.png" alt="VPN and Tailscale logos" class="card-thumbnail">
+                        </a>
+                        <div class="card-content">
+                            <h3 class="card-title mb-2">[ DIY Meshnet Alternative ]</h3>
+                            <p class="card-description mb-4">A guide to building a secure remote access solution for Raspberry Pi using NordVPN and Tailscale.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tag text-sm py-1 px-2">NordVPN</span>
+                                <span class="tag text-sm py-1 px-2">Tailscale</span>
+                                <span class="tag text-sm py-1 px-2">Raspberry Pi</span>
+                            </div>
+                            <a href="blogs/vpn-tail.html" class="project-link mt-auto self-start"> &gt;&gt; Read_Entry</a>
                         </div>
-                        <a href="blogs/python-cheatsheet-buildin.html" class="project-link"> &gt;&gt; Read_Entry</a>
                     </div>
 
-                    <!-- Add more blog post cards here as you write them -->
-                    
+                    <!-- Card 2: Python Cheatsheet -->
+                    <div class="card">
+                        <a href="blogs/python-cheatsheet-buildin.html">
+                             <img src="https://placehold.co/600x400/0D0221/00FFFF?text=Python_Script&font=orbitron" alt="Python Cheatsheet Thumbnail" class="card-thumbnail">
+                        </a>
+                         <div class="card-content">
+                            <h3 class="card-title mb-2">[ Python Cheatsheet ]</h3>
+                            <p class="card-description mb-4">A quick reference for Python's fundamental syntax, data structures, and built-in functions.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tag text-sm py-1 px-2">Python</span>
+                                <span class="tag text-sm py-1 px-2">Cheatsheet</span>
+                                <span class="tag text-sm py-1 px-2">Development</span>
+                            </div>
+                            <a href="blogs/python-cheatsheet-buildin.html" class="project-link mt-auto self-start"> &gt;&gt; Read_Entry</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="text-center py-6">
-        <p class="text-gray-600">>> STATUS: ARCHIVE ACCESSED <<</p>
+    <footer class="text-center py-6 mt-8">
+        <p class="text-gray-600 text-sm">>> STATUS: ARCHIVE ACCESSED <<</p>
     </footer>
 
-    <!-- Custom JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Glitchy Background Effect ---
+            // Glitchy Background
             const canvas = document.getElementById('glitch-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
             let lines = [];
             const lineCount = 50;
-
             class Line {
-                constructor() {
+                constructor() { this.reset(); }
+                reset() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
                     this.length = Math.random() * 200 + 50;
                     this.speed = Math.random() * 2 + 1;
                     this.opacity = Math.random() * 0.5 + 0.1;
-                    this.color = Math.random() > 0.5 ? 'rgba(255, 0, 255, ' + this.opacity + ')' : 'rgba(0, 255, 255, ' + this.opacity + ')';
+                    this.color = Math.random() > 0.5 ? `rgba(255, 0, 255, ${this.opacity})` : `rgba(0, 255, 255, ${this.opacity})`;
                 }
                 update() {
                     this.y += this.speed;
-                    if (this.y > canvas.height) {
-                        this.y = 0 - this.length;
-                        this.x = Math.random() * canvas.width;
-                    }
+                    if (this.y > canvas.height) this.reset();
                 }
                 draw() {
                     ctx.strokeStyle = this.color;
@@ -263,24 +261,14 @@
                     ctx.stroke();
                 }
             }
-
-            function initLines() {
-                for (let i = 0; i < lineCount; i++) {
-                    lines.push(new Line());
-                }
-            }
-            initLines();
-
+            function initLines() { for (let i = 0; i < lineCount; i++) lines.push(new Line()); }
             function animateLines() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < lines.length; i++) {
-                    lines[i].update();
-                    lines[i].draw();
-                }
+                lines.forEach(line => { line.update(); line.draw(); });
                 requestAnimationFrame(animateLines);
             }
+            initLines();
             animateLines();
-
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -288,7 +276,7 @@
                 initLines();
             });
 
-            // --- Blinking Cursor for Logo ---
+            // Blinking Cursor for Logo
             const logo = document.getElementById('logo');
             if (logo) {
                 const cursorSpan = document.createElement('span');
@@ -296,57 +284,18 @@
                 logo.appendChild(cursorSpan);
             }
 
-            // --- Typewriter Effect ---
-            const typeWriter = async (element, loop = false) => {
+            // Typewriter Effect
+            const typeWriter = async (element) => {
                 const text = element.dataset.text;
                 const typeSpeed = 100;
-                const eraseSpeed = 50;
-                const loopDelay = 3000;
-
                 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-                const type = async () => {
-                    for (let i = 0; i <= text.length; i++) {
-                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
-                        await sleep(typeSpeed);
-                    }
-                };
-
-                const erase = async () => {
-                    for (let i = text.length; i >= 0; i--) {
-                        element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
-                        await sleep(eraseSpeed);
-                    }
-                };
-
-                if (loop) {
-                    while (true) {
-                        await type();
-                        await sleep(loopDelay);
-                        await erase();
-                        await sleep(500);
-                    }
-                } else {
-                    await type();
-                    element.innerHTML = text + '<span class="cursor"></span>';
+                for (let i = 0; i <= text.length; i++) {
+                    element.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                    await sleep(typeSpeed);
                 }
+                 element.innerHTML = text; // Keep final text without cursor
             };
-
-            // --- Intersection Observer for Animations ---
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        const shouldLoop = el.dataset.loop === 'true';
-                        typeWriter(el, shouldLoop);
-                        observer.unobserve(el);
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            document.querySelectorAll('.typewriter').forEach(el => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.typewriter').forEach(el => typeWriter(el));
         });
     </script>
 </body>
