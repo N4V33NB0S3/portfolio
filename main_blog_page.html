@@ -102,8 +102,13 @@
         }
         .section-title::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
         .section-title::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
-
+        
         /* New Card Design */
+        .card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
         .card {
             background-color: rgba(13, 2, 33, 0.7);
             border: 1px solid var(--secondary-color);
@@ -112,8 +117,9 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            height: 100%; /* Ensure cards in a row are the same height */
         }
-        .card:hover {
+        .card-link:hover .card {
             transform: translateY(-8px);
             box-shadow: 0 0 25px -5px var(--secondary-glow-color);
         }
@@ -142,14 +148,6 @@
             color: var(--secondary-color);
             border: 1px solid rgba(0, 255, 255, 0.3);
             clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0% 100%);
-        }
-        .project-link {
-            color: var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-        .project-link:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px var(--secondary-glow-color);
         }
 
         /* Typewriter Animation */
@@ -186,40 +184,39 @@
                     <h2 class="section-title inline-block typewriter" data-text="[ Blog_Archive ]"></h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-
+                    
                     <!-- Card 1: VPN/Tailscale -->
-                    <div class="card">
-                        <a href="https://github.com/N4V33NB0S3/portfolio/blob/main/blogs/vpn-tail.html">
+                    <a href="blogs/vpn-tail.html" class="card-link">
+                        <div class="card">
                             <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/vpn_thumnail.png" alt="VPN and Tailscale logos" class="card-thumbnail">
-                        </a>
-                        <div class="card-content">
-                            <h3 class="card-title mb-2">[ DIY Meshnet Alternative ]</h3>
-                            <p class="card-description mb-4">A guide to building a secure remote access solution for Raspberry Pi using NordVPN and Tailscale.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="tag text-sm py-1 px-2">NordVPN</span>
-                                <span class="tag text-sm py-1 px-2">Tailscale</span>
-                                <span class="tag text-sm py-1 px-2">Raspberry Pi</span>
+                            <div class="card-content">
+                                <h3 class="card-title mb-2">[ DIY Meshnet Alternative ]</h3>
+                                <p class="card-description mb-4">A guide to building a secure remote access solution for Raspberry Pi using NordVPN and Tailscale.</p>
+                                <div class="flex flex-wrap gap-2 mt-auto">
+                                    <span class="tag text-sm py-1 px-2">NordVPN</span>
+                                    <span class="tag text-sm py-1 px-2">Tailscale</span>
+                                    <span class="tag text-sm py-1 px-2">Raspberry Pi</span>
+                                </div>
                             </div>
-                            <a href="blogs/vpn-tail.html" class="project-link mt-auto self-start"> &gt;&gt; Read_Entry</a>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Card 2: Python Cheatsheet -->
-                    <div class="card">
-                        <a href="blogs/python-cheatsheet-buildin.html">
+                    <a href="blogs/python-cheatsheet-buildin.html" class="card-link">
+                        <div class="card">
                              <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/python_cheat.png" alt="Python Cheatsheet Thumbnail" class="card-thumbnail">
-                        </a>
-                         <div class="card-content">
-                            <h3 class="card-title mb-2">[ Python Cheatsheet ]</h3>
-                            <p class="card-description mb-4">A quick reference for Python's fundamental syntax, data structures, and built-in functions.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="tag text-sm py-1 px-2">Python</span>
-                                <span class="tag text-sm py-1 px-2">Cheatsheet</span>
-                                <span class="tag text-sm py-1 px-2">Development</span>
+                             <div class="card-content">
+                                <h3 class="card-title mb-2">[ Python Cheatsheet ]</h3>
+                                <p class="card-description mb-4">A quick reference for Python's fundamental syntax, data structures, and built-in functions.</p>
+                                <div class="flex flex-wrap gap-2 mt-auto">
+                                    <span class="tag text-sm py-1 px-2">Python</span>
+                                    <span class="tag text-sm py-1 px-2">Cheatsheet</span>
+                                    <span class="tag text-sm py-1 px-2">Development</span>
+                                </div>
                             </div>
-                            <a href="blogs/python-cheatsheet-buildin.html" class="project-link mt-auto self-start"> &gt;&gt; Read_Entry</a>
                         </div>
-                    </div>
+                    </a>
+
                 </div>
             </div>
         </section>
@@ -300,3 +297,4 @@
     </script>
 </body>
 </html>
+
