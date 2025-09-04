@@ -102,7 +102,7 @@
         }
         .section-title::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
         .section-title::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
-        
+
         /* New Card Design */
         .card-link {
             display: block;
@@ -186,13 +186,30 @@
                     <h2 class="section-title inline-block typewriter" data-text="[ Blog_Archive ]"></h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                    
-                    <!-- Card 1: VPN/Tailscale -->
+
+                  <!-- Card 1: Traceroute/Traceroute -->
+                  <a href="blogs/traceroute_blog.html" class="card-link">
+                      <div class="card">
+                          <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/traceroute_thumb.png" alt="Traceroute Thumbnail" class="card-thumbnail">
+                          <div class="card-content">
+                              <h3 class="card-title mb-2">[ Traceroute deep dive ]</h3>
+                              <p class="card-description mb-4"> Everything you need to know about traceroute. </p>
+                              <div class="flex flex-wrap gap-2 mt-auto">
+                                  <span class="tag text-sm py-1 px-2">Networking</span>
+                                  <span class="tag text-sm py-1 px-2">Traceroute</span>
+                                  <span class="tag text-sm py-1 px-2">MTR</span>
+                              </div>
+                          </div>
+                      </div>
+                  </a>
+
+
+                    <!-- Card 2: VPN/Tailscale -->
                     <a href="blogs/vpn-tail.html" class="card-link">
                         <div class="card">
                             <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/vpn_thumnail.png" alt="VPN and Tailscale logos" class="card-thumbnail">
                             <div class="card-content">
-                                <h3 class="card-title mb-2">[ DIY Meshnet Alternative ]</h3>
+                                <h3 class="card-title mb-2">[ NordVPN Meshnet Alternative ]</h3>
                                 <p class="card-description mb-4">A guide to building a secure remote access solution for Raspberry Pi using NordVPN and Tailscale.</p>
                                 <div class="flex flex-wrap gap-2 mt-auto">
                                     <span class="tag text-sm py-1 px-2">NordVPN</span>
@@ -203,7 +220,7 @@
                         </div>
                     </a>
 
-                    <!-- Card 2: Python Cheatsheet -->
+                    <!-- Card 3: Python Cheatsheet -->
                     <a href="blogs/python-cheatsheet-buildin.html" class="card-link">
                         <div class="card">
                              <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/python_cheat.png" alt="Python Cheatsheet Thumbnail" class="card-thumbnail">
@@ -219,7 +236,7 @@
                         </div>
                     </a>
 
-                    <!-- Card 3: Hogwarts Dobby -->
+                    <!-- Card 4: Hogwarts Dobby -->
                     <a href="https://medium.com/@naveenbose1206/hogwarts-dobby-cd5283f29478" target="_blank" rel="noopener noreferrer" class="card-link">
                         <div class="card">
                              <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/thumbnails/hogwarts.png" alt="Hogwarts Castle Thumbnail" class="card-thumbnail">
@@ -315,4 +332,3 @@
     </script>
 </body>
 </html>
-
