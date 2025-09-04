@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everything You Need to Know About traceroute and tracert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A deep dive into how traceroute and tracert work, helping you diagnose network issues like slow connections, bottlenecks, and packet loss.">
+    <meta name="keywords" content="traceroute, tracert, networking, troubleshooting, packet loss, latency, TTL, MTR, network diagnostics">
+    <meta name="author" content="Naveen Bose">
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="Everything You Need to Know About traceroute and tracert">
+    <meta property="og:description" content="A deep dive into how traceroute and tracert work, helping you diagnose network issues.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="[Your Blog URL Here]">
+    <meta property="og:image" content="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/traceroute%20icmp%20image.png">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .prose code {
+            background-color: #f3f4f6;
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+            color: #1f2937;
+        }
+        .prose blockquote {
+            border-left-color: #3b82f6;
+            padding-left: 1em;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <article>
+            <!-- Blog Header -->
+            <header class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900">Everything You Need to Know About traceroute and tracert</h1>
+                <p class="mt-4 text-slate-500">Published on September 4, 2025 by <span class="font-semibold">Naveen Bose</span></p>
+            </header>
+
+            <!-- Main Blog Content -->
+            <div class="prose prose-lg max-w-none prose-slate">
+                <p class="lead text-xl text-slate-600">When your internet feels slow or a website won’t load, ever wonder where the problem <em>really</em> is? Is it your router, your ISP, or something miles away on the internet? That’s exactly what <code>traceroute</code> (on Linux/Mac) and <code>tracert</code> (on Windows) are for. These tools follow your data packets hop-by-hop across the internet, showing you exactly where the delays or drops are happening.</p>
+
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/traceroute%20icmp%20image.png" alt="Visual representation of a traceroute path" class="rounded-lg shadow-md my-8 w-full max-w-4xl mx-auto">
+
+                <h2 class="font-bold mt-12 mb-4">Why Do You Even Need This?</h2>
+                <p>The internet isn’t a single, straight line—it’s a massive web of connected routers and networks. Before your data gets to a website, it might pass through dozens of devices. If even one of those routers is overloaded or misconfigured, it can mess up your whole connection.</p>
+                <p>Traceroute helps you:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>See the Path:</strong> It reveals the exact route your packets take.</li>
+                    <li><strong>Spot Bottlenecks:</strong> It shows you where the connection slows down.</li>
+                    <li><strong>Find Packet Loss:</strong> It tells you if a router is dropping your data.</li>
+                </ul>
+
+                <h2 class="font-bold mt-12 mb-4">How Does It Actually Work? The TTL Trick</h2>
+                <p>Traceroute uses a clever trick with the <strong>TTL (Time To Live)</strong> field in IP packets. TTL is basically a countdown timer to prevent packets from getting stuck in an endless loop.</p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Every router the packet passes through decreases the TTL by 1.</li>
+                    <li>When the TTL hits zero, the router drops the packet and sends back an ICMP "Time Exceeded" message.</li>
+                </ol>
+
+                <p class="mt-6 mb-4"><strong>Traceroute exploits this by sending out probes with increasing TTLs:</strong></p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>TTL = 1:</strong> The first router in the path gets the packet, the TTL hits zero, and it sends a message back. <em>Hop 1 revealed.</em></li>
+                    <li><strong>TTL = 2:</strong> The packet passes the first router, but the second router stops it. <em>Hop 2 revealed.</em></li>
+                    <li>...and so on, until it reaches the final destination.</li>
+                    <li>The final hop is a little different depending on your system. Windows <code>tracert</code> uses ICMP (like a ping), while Linux/Mac <code>traceroute</code> uses UDP packets by default. The Linux version is more flexible—you can easily switch it to ICMP (<code>-I</code>) or TCP (<code>-T</code>) if you need to.</li>
+                </ul>
+
+                <div class="space-y-12 my-12">
+                    <figure>
+                        <figcaption class="text-center font-semibold mb-2">Traceroute on Windows</figcaption>
+                        <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/google%20tracert.jpg" alt="Screenshot of tracert command on Windows" class="rounded-lg shadow-md w-full">
+                    </figure>
+                    <figure>
+                        <figcaption class="text-center font-semibold mb-2">Traceroute on Linux</figcaption>
+                        <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/withoutvpn%20traceroute.jpg" alt="Screenshot of traceroute command on Linux" class="rounded-lg shadow-md w-full">
+                    </figure>
+                </div>
+
+                <h2 class="font-bold mt-12 mb-4">Why Do You See Three Times (e.g., 41 ms 36 ms 39 ms)?</h2>
+                <p>A colleague asked me this, and it’s a great question. By default, most traceroute tools send <strong>three</strong> probe packets to each hop. That’s why you see three round-trip times (RTTs) listed for every router.</p>
+                <p>This helps you judge the stability of that hop. If the three times are close together, the connection there is stable. If they are all over the place or you see asterisks (*), it could be a sign of a problem. For example, if you see <code>41 ms 36 ms 39 ms</code>, you know that hop is working fine. However, you can change this default with the <code>–q</code> option in traceroute (in Windows, there is no direct option for this).</p>
+
+                <h2 class="font-bold mt-12 mb-4">Why do asterisks (***) show on some hops?</h2>
+                <p>Seeing asterisks doesn't always mean there's a catastrophic failure. Common reasons include:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Most firewalls on devices are configured to not respond to ICMP packets.</li>
+                    <li>Routers are often configured with QoS (Quality of Service) to prioritize actual user traffic over diagnostic packets.</li>
+                    <li>Asymmetric routing (where the return path is different from the outbound path) can sometimes mislead the results.</li>
+                </ul>
+
+                <h2 class="font-bold mt-12 mb-4">Useful Traceroute Flags</h2>
+                 <ul class="list-none space-y-3">
+                    <li><code>-4</code> or <code>-6</code>: Forces traceroute to use either IPv4 or IPv6.</li>
+                    <li><code>-m max_ttl</code>: Sets the maximum number of hops (max TTL) before giving up. The default is usually 30.</li>
+                    <li><code>-f first_ttl</code>: Tells traceroute to start at a specific hop number instead of 1.</li>
+                    <li><code>-n</code>: Don't resolve IP addresses to hostnames. This can make the trace run much faster.</li>
+                    <li><code>-q nqueries</code>: Sets the number of probe packets sent to each hop (e.g., <code>-q 5</code>).</li>
+                    <li><code>-p port</code>: Sets the destination port for UDP or TCP probes.</li>
+                </ul>
+                <p class="mt-4">Reference: <a href="https://www.geeksforgeeks.org/linux-unix/traceroute-command-in-linux-with-examples/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GeeksForGeeks - Traceroute Command in Linux</a></p>
+
+
+                <h2 class="font-bold mt-12 mb-4">Beyond Traceroute: MTR</h2>
+                <p>While not installed by default, <strong>MTR (My TraceRoute)</strong> combines traceroute and ping. It continuously updates latency and packet loss stats for each hop, making it much easier to spot ongoing issues. On Windows, the equivalent is a third-party tool called WinMTR.</p>
+
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/mtr.gif" alt="Animation showing MTR results updating" class="rounded-lg shadow-md my-8 w-full max-w-4xl mx-auto">
+
+                <h2 class="font-bold mt-12 mb-4">Conclusion</h2>
+                <p>Traceroute and tracert are more than just old-school utilities—they’re windows into the hidden highways of the internet. By sending controlled probes, they map the journey of your packets, hop by hop, and help you pinpoint where trouble might begin. Next time your connection slows, don’t just restart your router. Fire up traceroute and see the secret road trip your packets are taking.</p>
+
+            </div>
+
+            <!-- Author/Social Links Section -->
+            <footer class="mt-16 pt-8 border-t border-slate-200">
+                <h3 class="text-xl font-semibold text-center text-slate-800">Connect with Naveen Bose</h3>
+                <div class="flex justify-center items-center space-x-6 mt-4">
+                    <a href="mailto:naveenbose@proton.me" title="Email" class="text-slate-500 hover:text-blue-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                    <a href="https://github.com/N4V33NB0S3" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-slate-500 hover:text-slate-900 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/naveen-bose-612134256" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="text-slate-500 hover:text-blue-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" title="TryHackMe" class="text-slate-500 hover:text-red-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    </a>
+                </div>
+            </footer>
+        </article>
+    </div>
+
+</body>
+</html>
