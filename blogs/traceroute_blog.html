@@ -41,17 +41,20 @@
 <body class="bg-slate-50 text-slate-800">
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mb-8">
+            <a href="https://naveenbose.com/main_blog_page.html" class="text-blue-600 hover:underline">&larr; Return to Blog Archive</a>
+        </div>
         <article>
             <!-- Blog Header -->
             <header class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900">Everything You Need to Know About traceroute and tracert</h1>
-                <p class="mt-4 text-slate-500">Published on September 4, 2025 by <span class="font-semibold">Naveen Bose</span></p>
+                <p class="mt-4 text-slate-500">Published on September 5, 2025 by <span class="font-semibold">Naveen Bose</span></p>
             </header>
 
             <!-- Main Blog Content -->
             <div class="prose prose-lg max-w-none prose-slate">
                 <p class="lead text-xl text-slate-600">When your internet feels slow or a website won’t load, ever wonder where the problem <em>really</em> is? Is it your router, your ISP, or something miles away on the internet? That’s exactly what <code>traceroute</code> (on Linux/Mac) and <code>tracert</code> (on Windows) are for. These tools follow your data packets hop-by-hop across the internet, showing you exactly where the delays or drops are happening.</p>
-
+                
                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/traceroute%20icmp%20image.png" alt="Visual representation of a traceroute path" class="rounded-lg shadow-md my-8 w-full max-w-4xl mx-auto">
 
                 <h2 class="font-bold mt-12 mb-4">Why Do You Even Need This?</h2>
@@ -69,7 +72,7 @@
                     <li>Every router the packet passes through decreases the TTL by 1.</li>
                     <li>When the TTL hits zero, the router drops the packet and sends back an ICMP "Time Exceeded" message.</li>
                 </ol>
-
+                
                 <p class="mt-6 mb-4"><strong>Traceroute exploits this by sending out probes with increasing TTLs:</strong></p>
                 <ul class="list-disc list-inside space-y-2 pl-4">
                     <li><strong>TTL = 1:</strong> The first router in the path gets the packet, the TTL hits zero, and it sends a message back. <em>Hop 1 revealed.</em></li>
@@ -115,14 +118,14 @@
 
                 <h2 class="font-bold mt-12 mb-4">Beyond Traceroute: MTR</h2>
                 <p>While not installed by default, <strong>MTR (My TraceRoute)</strong> combines traceroute and ping. It continuously updates latency and packet loss stats for each hop, making it much easier to spot ongoing issues. On Windows, the equivalent is a third-party tool called WinMTR.</p>
-
+                
                 <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/traceroute/mtr.gif" alt="Animation showing MTR results updating" class="rounded-lg shadow-md my-8 w-full max-w-4xl mx-auto">
 
                 <h2 class="font-bold mt-12 mb-4">Conclusion</h2>
                 <p>Traceroute and tracert are more than just old-school utilities—they’re windows into the hidden highways of the internet. By sending controlled probes, they map the journey of your packets, hop by hop, and help you pinpoint where trouble might begin. Next time your connection slows, don’t just restart your router. Fire up traceroute and see the secret road trip your packets are taking.</p>
-
+                
             </div>
-
+            
             <!-- Author/Social Links Section -->
             <footer class="mt-16 pt-8 border-t border-slate-200">
                 <h3 class="text-xl font-semibold text-center text-slate-800">Connect with Naveen Bose</h3>
@@ -146,3 +149,4 @@
 
 </body>
 </html>
+
